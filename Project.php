@@ -1,6 +1,6 @@
 <?php
 
-    require_once __DIR__."/Custommer.php";
+    require_once __DIR__."/Customer.php";
     require_once __DIR__."/Host.php";
 
     class Project
@@ -57,7 +57,7 @@
 
         public function setCode(string $newCode): void
         {
-            $this->code = $newCode
+            $this->code = $newCode;
         }
         
         public function setLastPassFolder(string $newLastPassFolder): void
