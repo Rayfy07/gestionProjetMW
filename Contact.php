@@ -1,7 +1,7 @@
 <?php 
 
-    require __DIR__."/Customer.php";
-    require __DIR__."/Host.php";
+    require_once __DIR__."/Customer.php";
+    require_once __DIR__."/Host.php";
 
     class Contact 
     {
