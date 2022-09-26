@@ -14,53 +14,53 @@
         {
             return $this->id;
         }
-        public function setId(string $id): void
+        public function setId(string $newId): void
         {
-            $this->id = $id;
+            $this->id = $newId;
         }
 
         public function getEmail(): string
         {
             return $this->email;
         }
-        public function setEmail(string $email): void
+        public function setEmail(string $newEmail): void
         {
-            $this->email = $email;
+            $this->email = $newEmail;
         }
 
         public function getPhoneNumber(): string
         {
             return $this->phoneNumber;
         }
-        public function setPhoneNumber(string $phoneNumber): void
+        public function setPhoneNumber(string $newPhoneNumber): void
         {
-            $this->phoneNumber = $phoneNumber;
+            $this->phoneNumber = $newPhoneNumber;
         }
 
         public function getRole(): string
         {
             return $this->role;
         }
-        public function setRole(string $role): void
+        public function setRole(string $newRole): void
         {
             $this->role = $role;
         }
 
-        public function getHost(): Hote
+        public function getHost(): Host
         {
-            return $this->hote;
+            return $this->host;
         }
-        public function setHost(Hote $hote): void
+        public function setHost(Hote $newHost): void
         {
-            $this->hote = $hote;
+            $this->host = $newHost;
         }
 
         public function getCustomer(): Customer
         {
             return $this->customer;
         }
-        public function setCustomer(Customer $customer): void
+        public function setCustomer(Customer $newCustomer): void
         {
-            $this->customer = $customer;
+            $this->customer = $newCustomer;
         }
     }
