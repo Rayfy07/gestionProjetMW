@@ -5,7 +5,7 @@
 
     class Contact 
     {
-        public function __construct(private int $id, private string $email, private string $phoneNumber, private string $role, Host $hostId, Customer $customerId)
+        public function __construct(private int $id, private string $email, private string $phoneNumber, private string $role, Host $host, Customer $customer)
         {
             
         }
@@ -46,21 +46,21 @@
             $this->role = $newRole;
         }
 
-        public function getHostId(): Host
+        public function getHost(): Host
         {
-            return $this->hostId;
+            return $this->host;
         }
-        public function setHostId(Hote $newHost): void
+        public function setHost(Host $newHost): void
         {
             $this->hostId = $newHost;
         }
 
-        public function getCustomerId(): Customer
+        public function getCustomer(): Customer
         {
-            return $this->customerId;
+            return $this->customer;
         }
-        public function setCustomerId(Customer $newCustomer): void
+        public function setCustomer(Customer $newCustomer): void
         {
-            $this->customerId = $newCustomer;
+            $this->customer = $newCustomer;
         }
     }
