@@ -12,37 +12,37 @@
             return $this->id;
         }
 
-        public function setId(int $nouvId): void
+        public function setId(int $newId): void
         {
-            $this->id = $nouvId;
+            $this->id = $newId;
         }
 
-        public function getCode(): int
+        public function getCode(): string
         {
             return $this->code;
         }
 
-        public function setCode(int $nouvCode): void
+        public function setCode(string $newCode): void
         {
-            $this->code = $nouvCode;
+            $this->code = $newCode;
         }
 
-        public function getName(): int
+        public function getName(): string
         {
             return $this->name;
         }
 
-        public function setName(int $newName): void
+        public function setName(string $newName): void
         {
             $this->name = $newName;
         }
 
-        public function getNotes(): int
+        public function getNotes(): string
         {
             return $this->notes;
         }
 
-        public function setNotes(int $newNotes): void
+        public function setNotes(string $newNotes): void
         {
             $this->notes = $newNotes;
         }
