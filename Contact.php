@@ -46,20 +46,20 @@
             $this->role = $newRole;
         }
 
-        public function getHost(): Host
+        public function getHostId(): Host
         {
             return $this->host;
         }
-        public function setHost(Hote $newHost): void
+        public function setHostId(Hote $newHost): void
         {
             $this->host = $newHost;
         }
 
-        public function getCustomer(): Customer
+        public function getCustomerId(): Customer
         {
             return $this->customer;
         }
-        public function setCustomer(Customer $newCustomer): void
+        public function setCustomerId(Customer $newCustomer): void
         {
             $this->customer = $newCustomer;
         }
