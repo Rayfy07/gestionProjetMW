@@ -4,7 +4,7 @@
 
     class environment
     {
-        public function __construct(private int $id, private string $name, private string $link, private string $ipAdresse, private int $sshPort, private string $sshUserName, private string $phpMyAdminLink, private bool $ipRestriction, private Project $projectId)
+        public function __construct(private int $id, private string $name, private string $link, private string $ipAdresse, private int $sshPort, private string $sshUserName, private string $phpMyAdminLink, private bool $ipRestriction, private Project $project)
         {
 
         }
@@ -89,14 +89,14 @@
             $this->ipRestriction = $newIpRestriction;
         }
 
-        public function getProjectId(): Project
+        public function getProject(): Project
         {
-            return $this->projectId;
+            return $this->project;
         }
 
-        public function setProjectId(Project $newProjectId): void
+        public function setProject(Project $newProject): void
         {
-            $this->projectId = $newProjectId;
+            $this->project = $newProject;
         }
     }
 
