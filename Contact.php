@@ -43,7 +43,7 @@
         }
         public function setRole(string $newRole): void
         {
-            $this->role = $role;
+            $this->role = $newRole;
         }
 
         public function getHost(): Host
