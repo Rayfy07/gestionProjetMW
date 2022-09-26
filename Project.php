@@ -5,7 +5,7 @@
 
     class Project
     {
-        public function __construct(private int $id, private string $code, private string $lastPassFolder, private string $linkMockUps, private bool $managedServer, private string $notes, private Host $hostId, private Customer $customerId)
+        public function __construct(private int $id, private string $name, private string $code, private string $lastPassFolder, private string $linkMockUps, private bool $managedServer, private string $notes, private Host $host, private Customer $customer)
         {
 
         }
@@ -13,6 +13,11 @@
         public function getId(): int
         {
             return $this->id;
+        }
+
+        public function getName(): string
+        {
+            return $this->name;
         }
 
         public function getCode(): string
@@ -40,12 +45,12 @@
             return $this->notes;
         }
 
-        public function getHostId(): Host
+        public function getHost(): Host
         {
             return $this->hostId;
         }
 
-        public function getCustomerId(): Customer
+        public function getCustomer(): Customer
         {
             return $this->customerId;
         }
@@ -53,6 +58,11 @@
         public function setId(int $newId): void
         {
             $this->id = $newId;
+        }
+
+        public function setName(string $newName): void
+        {
+            $this->code = $newName;
         }
 
         public function setCode(string $newCode): void
@@ -77,13 +87,13 @@
         {
             $this->notes = $newNotes;
         }
-        public function setHostId(Host $newHostId): void
+        public function setHost(Host $newHost): void
         {
-            $this->hostId = $hostId;
+            $this->host = $host;
         }
-        public function setCustomerId(Customer $newCustomerId): void
+        public function setCustomer(Customer $newCustomer): void
         {
-            $this->customerId = $newCustomerId;
+            $this->customer = $newCustomer;
         }
     }
 ?>
