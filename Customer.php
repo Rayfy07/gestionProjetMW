@@ -11,36 +11,36 @@
         {
             return $this->id;
         }
-        public function setId(string $id): void
+        public function setId(string $newId): void
         {
-            $this->id = $id;
+            $this->id = $newId;
         }
 
         public function getCode(): string
         {
             return $this->code;
         }
-        public function setCode(string $code): void
+        public function setCode(string $newCode): void
         {
-            $this->code = $code;
+            $this->code = $newCode;
         }
 
         public function getName(): string
         {
             return $this->name;
         }
-        public function setName(string $name): void
+        public function setName(string $newName): void
         {
-            $this->name = $name;
+            $this->name = $newName;
         }
 
         public function getNotes(): string
         {
             return $this->notes;
         }
-        public function setNotes(string $notes): void
+        public function setNotes(string $newNotes): void
         {
-            $this->notes = $notes;
+            $this->notes = $newNotes;
         }
     }
 ?>
