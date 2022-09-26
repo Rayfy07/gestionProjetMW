@@ -5,7 +5,7 @@
 
     class Contact 
     {
-        public function __construct(private int $id, private string $email, private string $phoneNumber, private string $role, Host $host, Customer $customer)
+        public function __construct(private int $id, private string $email, private string $phoneNumber, private string $role, private Host $host, private Customer $customer)
         {
             
         }
@@ -52,7 +52,7 @@
         }
         public function setHost(Host $newHost): void
         {
-            $this->hostId = $newHost;
+            $this->host = $newHost;
         }
 
         public function getCustomer(): Customer
