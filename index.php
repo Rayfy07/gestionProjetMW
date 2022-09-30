@@ -13,7 +13,4 @@
     $project1 = new Project(1,"name","code","pass","mook",true,"noteuuu",$host1,$customer1);
     $environment1 = new Environment(1,"name","link","adresseIp",23,"sshuser","myadmin",true,$project1);
 
-    echo $environment1->getId().PHP_EOL;
-    echo $environment1->setId(10);
-    echo $environment1->getId();
 ?>
