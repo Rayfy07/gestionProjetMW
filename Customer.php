@@ -1,46 +1,19 @@
 <?php
 
-    class Customer 
+require_once __DIR__."/Trait.php";
+
+class Customer implements EstIdInterface
+{
+    use IdTrait;
+    use NameTrait;
+    use CodeNotesTrait;
+
+    public function __construct(int $id, string $code, string $name, string $notes)
     {
-        public function __construct(private int $id, private string $code, private string $name, private string $notes)
-        {
-            
-        }
-
-        public function getId(): int
-        {
-            return $this->id;
-        }
-        public function setId(string $id): void
-        {
-            $this->id = $id;
-        }
-
-        public function getCode(): string
-        {
-            return $this->code;
-        }
-        public function setCode(string $code): void
-        {
-            $this->code = $code;
-        }
-
-        public function getName(): string
-        {
-            return $this->name;
-        }
-        public function setName(string $name): void
-        {
-            $this->name = $name;
-        }
-
-        public function getNotes(): string
-        {
-            return $this->notes;
-        }
-        public function setNotes(string $notes): void
-        {
-            $this->notes = $notes;
-        }
+        $this->id = $id;
+        $this->code = $code;
+        $this->name = $name;
+        $this->notes = $notes;
     }
+}
 ?>
