@@ -1,51 +1,20 @@
 <?php
 
-    class Host
+require_once __DIR__."/Trait.php";
+
+class Host implements EstIdInterface
+{
+    use IdTrait;
+    use NameTrait;
+    use CodeNotesTrait;
+
+    public function __construct(int $id, string $code, string $name, string $notes)
     {
-        public function __construct(private int $id, private string $code, private string $name, private string $notes)
-        {
-
-        }
-
-        public function getId(): int
-        {
-            return $this->id;
-        }
-
-        public function setId(int $newId): void
-        {
-            $this->id = $newId;
-        }
-
-        public function getCode(): string
-        {
-            return $this->code;
-        }
-
-        public function setCode(string $newCode): void
-        {
-            $this->code = $newCode;
-        }
-
-        public function getName(): string
-        {
-            return $this->name;
-        }
-
-        public function setName(string $newName): void
-        {
-            $this->name = $newName;
-        }
-
-        public function getNotes(): string
-        {
-            return $this->notes;
-        }
-
-        public function setNotes(string $newNotes): void
-        {
-            $this->notes = $newNotes;
-        }
+        $this->id = $id;
+        $this->code = $code;
+        $this->name = $name;
+        $this->notes = $notes;
     }
+}
 
 ?>
