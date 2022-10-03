@@ -1,5 +1,5 @@
 # gestionProjetMW
 
-class file
-trait file
-interface in trait file
+All Class file.
+All Trait file.
+Interface in Trait file.
