@@ -1,9 +1,10 @@
 a {
     --color-a: white;
+    text-decoration: none;
 }
 
-a:hover {
-    --color-a-hover: black;
+section {
+    margin: 50px 50px 50px 450px;
 }
 
 /* css navbar */
@@ -66,5 +67,37 @@ nav .bi {
     nav i {
         margin: 0;
         font-size: 30px;
+    }
+}
+
+/* page client */
+
+.add-customer ul {
+    list-style: none;
+    margin: 50px 0 50px 0;
+    padding: 0;
+}
+
+.add-customer li {
+    display: inline-block;
+    cursor: pointer;
+    padding: 0;
+}
+
+.add-customer li:last-child {
+    margin-left: 50px;
+}
+
+#contact {
+    display: none;
+}
+
+@media (max-width: 991px) {
+    section {
+        margin: 25px;
+    }
+
+    .add-customer li:last-child {
+        margin-left: 25px;
     }
 }
