@@ -11,18 +11,18 @@ trait CodeNotesTrait
     {
         return $this->code;
     }
-    public function setCode(string $code): void
+    public function setCode(string $newCode): void
     {
-        $this->code = $code;
+        $this->code = $newCode;
     }
 
     public function getNotes(): string
     {
         return $this->notes;
     }
-    public function setNotes(string $notes): void
+    public function setNotes(string $newNotes): void
     {
-        $this->notes = $notes;
+        $this->notes = $newNotes;
     }
 }
 

@@ -9,9 +9,9 @@ use App\class\Customer;
 use App\class\Contact;
 use App\class\Project;
 use App\class\Environment;
-use App\connection\DataBaseConnect;
+use App\connection\DataBaseConnection;
 
-// $database = DataBaseConnect::connect();
+$database = DataBaseConnection::connect();
 
 
 $host1 = new Host(1, "code", "name", "sdlgvbldw!kemqbj:wdmqfl");
@@ -26,7 +26,7 @@ $project1 = new Project(1,"project", "clac", "pass","mook", true, "noteu", $host
 
 $environment1 = new Environment(1, "name", "link", "adresseIp",23 , "sshuser", "myadmin", true, $project1);
 
-// $database = DataBaseConnect::disconnect();
+$database = DataBaseConnection::disconnect();
 ?>
     
 <?php require_once __DIR__."/require/footer.php"; ?>

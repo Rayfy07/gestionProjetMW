@@ -1,14 +1,14 @@
-function show() {
-    const contact = document.getElementById("contact");
-    const info = document.getElementById("info");
+const contactBtn = document.getElementById("contactBtn");
+const infoBtn = document.getElementById("infoBtn");
+const contact = document.getElementById("contact");
+const info = document.getElementById("info");
 
-    if (contact.style.display === "none") {
-        contact.style.display = "block";
-        info.style.display = "none";
-    }
-    else {
-        contact.style.display = "none";
-        info.style.display = "block";
-    }
+contactBtn.addEventListener("click", function(){
+    info.style.display = "none";
+    contact.style.display = "block";
+})
 
-}
+infoBtn.addEventListener("click", function(){
+    contact.style.display = "none";
+    info.style.display = "block";
+})

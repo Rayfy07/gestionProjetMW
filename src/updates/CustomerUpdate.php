@@ -1,19 +1,19 @@
 <?php
 
-namespace App\inserts;
+namespace App\updates;
 
 use App\class\Customer;
 use App\connection\DataBaseConnection;
 
-class CustomerInsertion
+class CustomerUpdate
 {
-    public static function insert(Customer $customer): bool
+    public static function update(Customer $customer): bool
     {
         try
         {
             $database = DataBaseConnection::connect();
-            $insert = $database->prepare("INSERT INTO customer VALUES (?,?,?,?)");
-            $insert->execute(array($customer->getId(), $customer->getCode(), $customer->getName(), $customer->getNotes()));
+            $update = $database->prepare("UPDATE customer SET code = ?, name = ?, notes = ? WHERE id=?");
+            $update->execute(array($customer->getCode(), $customer->getName(), $customer->getNotes(), $customer->getId()));
             try
             {
                 $database = DataBaseConnection::disconnect();

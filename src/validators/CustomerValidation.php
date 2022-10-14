@@ -19,7 +19,7 @@
             if(!empty($customer->getId()))
             {
                 $customer->setName(verify($customer->getName()));
-                $customer->setCode(verify($customer->getCode()));
+                $customer->setCode(str_replace(" ", "_", strtoupper("CUST_".verify($customer->getCode()))));
                 $customer->setNotes(verify($customer->getNotes()));
                 return true;
             }

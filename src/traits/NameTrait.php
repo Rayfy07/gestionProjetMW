@@ -12,7 +12,7 @@ trait NameTrait
     }
     public function setName(string $newName): void
     {
-        $this->name = $name;
+        $this->name = $newName;
     }
 }
 
