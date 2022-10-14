@@ -13,7 +13,8 @@ class DataBaseConnect{
 
 	private static $connection = null;
 
-	public static function connect(){
+	public static function connect()
+	{
 		try{
 			self::$connection = new PDO("mysql:host=".self::$dbHost.";dbname=".self::$dbName,self::$dbUser,self::$dbUserPassword);
 		}
@@ -23,7 +24,8 @@ class DataBaseConnect{
 		return self::$connection;
 	}
 
-	public static function disconnect(){
+	public static function disconnect()
+	{
 		self::$connection = null;
 	}
 }
