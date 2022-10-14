@@ -17,7 +17,7 @@ $database = DataBaseConnect::connect();
 $host1 = new Host(1, "code", "name", "sdlgvbldw!kemqbj:wdmqfl");
 $host2 = new Host(2, "code", "name", "sdlgvbldw!kemqbj:wdmqfl");
 
-$customer1 = new Customer(1, "code", "name", "noteu");
+$customer1 = new Customer(1, "", "", "");
 $customer2 = new Customer(2, "code", "name", "noteu");
 
 $contact1 = new Contact(1, "@","phon","role", $host1, $customer1);
