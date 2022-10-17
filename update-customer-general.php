@@ -10,17 +10,29 @@ use App\updates\CustomerUpdate;
 
 $database = DataBaseConnection::connect();
 
-$name = $code = $notes = $validate = $error ="";
+$name = $code = $notes = $validate = $error = $errorFounding = "";
 
-$id = $_GET["id"];
+if(isset($_GET["id"]))
+{
+    $id = $_GET["id"];
 
-$select = $database -> prepare("SELECT * FROM customer WHERE id = ?");
-$select -> execute(array($id));
-$rowSelect = $select -> fetch();
-
-$name = $rowSelect["name"];
-$code = $rowSelect["code"];
-$notes = $rowSelect["notes"];
+    $select = $database -> prepare("SELECT * FROM customer WHERE id = ?");
+    $select -> execute(array($id));
+    if($rowSelect = $select -> fetch())
+    {
+        $name = $rowSelect["name"];
+        $code = $rowSelect["code"];
+        $notes = $rowSelect["notes"];
+    }
+    else
+    {
+        $errorFounding = "Ce client n'existe pas";
+    }
+}
+else
+{
+    $errorFounding = "Un problème a été rencontré dans le chargement de la page";
+}
 
 if (isset($_POST["edit"])) {
 
@@ -66,37 +78,50 @@ $database = DataBaseConnection::disconnect();
     </div>
     
     <div id="info">
-        <form action="" method="post">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="name-customer" id="floatingName" placeholder="Jean Dupont" value="<?php echo $name ?>">
-                <label for="floatingName">Nom du client</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="code-intra" id="floatingCode" placeholder="CUST-FEDERATION-FRANCAISE-DE-DANSE" disabled value="<?php echo $code ?>">
-                <label for="floatingCode">Code interne</label>
-            </div>
-            <div class="form-floating mb-3">
-                <textarea class="form-control" placeholder="Notes/Remarques" name="note-customer" id="floatingNote" style="height: 100px"><?php echo $notes ?></textarea>
-                <label for="floatingNote">Notes ou remarques</label>
-            </div>
-            <button class="btn btn-secondary mb-3" type="reset">Annuler la modification du client</button>
-            <button class="btn btn-primary mb-3" name="edit" type="submit">Modifier le client</button>
 
-            <?php 
-                if($validate != "") {
-                    echo'   <div class="alert alert-success" role="alert">
-                                <p>'.$validate.'</p>
-                            </div>
-                        ';
-                }
-                else if($error != "") {
-                    echo'   <div class="alert alert-danger" role="alert">
-                                <p>'.$error.'</p>
-                            </div>
-                        ';
-                }
-            ?>
-        </form>
+        <?php
+
+        if($errorFounding != "")
+        {
+            echo'   <div class="alert alert-danger" role="alert">
+                            <p>'.$errorFounding.'</p>
+                        </div>
+                    ';
+        }
+        else
+        {
+            echo'   <form action="" method="post">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="name-customer" id="floatingName" placeholder="Jean Dupont" value="'.$name.'">
+                        <label for="floatingName">Nom du client</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="code-intra" id="floatingCode" placeholder="CUST-FEDERATION-FRANCAISE-DE-DANSE" disabled value="'.$code.'">
+                        <label for="floatingCode">Code interne</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" placeholder="Notes/Remarques" name="note-customer" id="floatingNote" style="height: 100px">'.$notes.'</textarea>
+                        <label for="floatingNote">Notes ou remarques</label>
+                    </div>
+                    <button class="btn btn-secondary mb-3" type="reset">Annuler la modification du client</button>
+                    <button class="btn btn-primary mb-3" name="edit" type="submit">Modifier le client</button>';
+        
+            if($validate != "") {
+                echo'   <div class="alert alert-success" role="alert">
+                            <p>'.$validate.'</p>
+                        </div>
+                    ';
+            }
+            else if($error != "") {
+                echo'   <div class="alert alert-danger" role="alert">
+                            <p>'.$error.'</p>
+                        </div>
+                    ';
+            }
+            echo'   </form>';
+        }
+
+        ?>
     </div>
 
     <div id="contact">

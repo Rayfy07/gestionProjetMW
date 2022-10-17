@@ -9,7 +9,7 @@ CREATE TABLE host (
 CREATE TABLE customer(
     id int NOT NULL AUTO_INCREMENT,
     code varchar(255),
-    name varchar(255) NOT NULL,
+    name varchar(255) NOT NULL UNIQUE,
     notes varchar(1000),
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
@@ -57,53 +57,49 @@ CREATE TABLE environment(
     FOREIGN KEY (project_id) REFERENCES project (id)
 ) ENGINE=InnoDB;
 
-INSERT INTO host(code, name, notes) VALUES ("","E","");
-INSERT INTO host(code, name, notes) VALUES ("host_ecr","Ecr","");
-INSERT INTO host(code, name, notes) VALUES ("","Ecc","notes sur Ecc");
-INSERT INTO host(code, name, notes) VALUES ("host_ecritel","Ecritel","notes sur Ecritel");
-INSERT INTO host(code, name, notes) VALUES ("host_labal","Labal","notes sur Labal");
-INSERT INTO host(code, name, notes) VALUES ("host_unhost","UnHost","notes sur UnHost");
-INSERT INTO host(code, name, notes) VALUES ("host_superhost","SuperHost","notes sur SuperHost");
-INSERT INTO host(code, name, notes) VALUES ("host_lal","Lal","notes sur Lal");
-INSERT INTO host(code, name, notes) VALUES ("host_testeur","Testeur","notes sur Testeur");
-INSERT INTO host(code, name, notes) VALUES ("host_ovh","OVH","notes sur OVH");
-INSERT INTO host(code, name, notes) VALUES ("host_final","FINAL","notes sur FINAL");
+INSERT INTO host(code, name, notes) VALUES ("HOST_HOSTINGER","HOSTINGER","Hostinger International, Ltd est un fournisseur d'hébergement Web et un registraire de domaine Internet appartenant à ses employés, créé en 2004.");
+INSERT INTO host(code, name, notes) VALUES ("HOST_LWS","LXS","LWS est le partenaire français idéal pour les particuliers, passionnés et entreprises.
+La performance de nos serveurs vous permet de disposer d'une vitesse maximale pour vos projets web !");
+INSERT INTO host(code, name, notes) VALUES ("HOST_OVH","OVH","OVHcloud, anciennement OVH, est une entreprise française. Elle pratique initialement de l'hébergement de serveur, et est un fournisseur d'accès à Internet, puis opérateur de télécommunications pour les entreprises.");
+INSERT INTO host(code, name, notes) VALUES ("HOST_IONOS","IONOS","IONOS by 1&1 fondée en 1988, est une société d’hébergement Web. Elle fait partie du groupe coté en bourse United Internet AG.");
+INSERT INTO host(code, name, notes) VALUES ("HOST_HOSTGATOR","HostGator","HostGator est un fournisseur basé à Houston de partage, revendeur, serveur privé virtuel et hébergement Web dédié avec une présence supplémentaire à Austin, Texas.");
+INSERT INTO host(code, name, notes) VALUES ("HOST_GODADDY","GoDaddy","GoDaddy est une entreprise américaine fondée en 1997 qui est spécialisée dans la gestion de noms de domaine sur Internet et la mise à disposition de services d'hébergement web.");
+INSERT INTO host(code, name, notes) VALUES ("HOST_NETWORK_SOLUTIONS","network solutions","Network Solutions, LLC est une entreprise technologique américaine fondée en 1979. En 2009, la gestion du registre de noms de domaine, essentiel au fonctionnement d'Internet, est son activité la plus importante.");
+INSERT INTO host(code, name, notes) VALUES ("HOST_INMOTION","InMotion","Secure web hosting that grows with your business");
+INSERT INTO host(code, name, notes) VALUES ("HOST_A2_HOSTING","A2 HOSTING","");
+INSERT INTO host(code, name, notes) VALUES ("HOST_WEBHOSTINGPAD","WebHostingPad","");
 
-INSERT INTO customer(code, name, notes) VALUES ("","A","");
-INSERT INTO customer(code, name, notes) VALUES ("codeInt_Al","Al","");
-INSERT INTO customer(code, name, notes) VALUES ("","Ali","notes sur Ali");
-INSERT INTO customer(code, name, notes) VALUES ("codeInt_Al","Aline","notes sur Aline");
-INSERT INTO customer(code, name, notes) VALUES ("codeInt_Thibault_Tremel","Thibault Tremel","notes sur Thibault Tremel");
-INSERT INTO customer(code, name, notes) VALUES ("codeInt_Hai_Medhi","Hai Medhi","notes sur Hai Medhi");
-INSERT INTO customer(code, name, notes) VALUES ("codeInt_Arnaud_Delfour","Arnaud Delfour","notes sur Arnaud Delfour");
-INSERT INTO customer(code, name, notes) VALUES ("codeInt_LeClient","LeClient","notes sur LeClient");
-INSERT INTO customer(code, name, notes) VALUES ("codeInt_Testeur","Testeur","notes sur Testeur");
-INSERT INTO customer(code, name, notes) VALUES ("codeInt_Dédé","Dédé","notes sur Dédé");
-INSERT INTO customer(code, name, notes) VALUES ("codeInt_Final","Final","notes sur Final");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_CDISCOUNT","CDiscount","");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_AMAZON","Amazon","");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_FERNAND_BRUGIERE","Fernand Brugière","notes sur Fernand Brugière");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_ESTELLE_BOUSQUET","Estelle Bousquet","notes sur Estelle Bousquet");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_THIBAULT_TREMEL","Thibault Tremel","notes sur Thibault Tremel");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_MEDHI_HAI","Medhi Hai","notes sur Hai Medhi");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_PEUGEOT","Peugeot","constructeur automobile");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_ISMAIL_OULEHRI","Ismail Oulehri","notes sur Ismail Oulehri");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_YAO_LIN","Yao Lin","notes sur Yao Lin");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_RENAULT","RENAULT","constructeur automobile");
 
-INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("","","",1,null);
-INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("te@gmail.com","","",null,2);
-INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("contactme@gmail.com","0624252627","",1,null);
-INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("mail@gmail.com","","Chef de projet",null,4);
-INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("","0624252629","",3,null);
-INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("","0624597627","",null,2);
-INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("mail2@gmail.com","","Developpeur Front",9,null);
-INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("mail3@gmail.com","","Testeur",null,3);
-INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("","","",10,null);
-INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("","","",null,6);
-INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("final@gmail.com","0101010101","Final dev",1,null);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("","1007","Service client",3,null);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("ismailoulehri@gmail.com","0689567238","Chef de projet",null,8);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("hq@godaddy.com","0157323649","Service client",6,null);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("yao.lin@afnic.com","0769960077","Responsable système d'information",null,9);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("estellebousquet@gmail.com","0624252629","developpeuse",null,4);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("estelle.bousquet@bousquet.fr","0188227254","directrice",null,4);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("","0713574528","Service client",5,null);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("fr@hostinger.com","","Service support",1,null);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("","0155948100","Siège social",null,7);
 
-INSERT INTO project(name, code, lastpass_folder,link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("FED","","","",0,"",1,2);
-INSERT INTO project(name, code, lastpass_folder,link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("FEDUI","code_fedui","","/mokups",1,"",3,2);
-INSERT INTO project(name, code, lastpass_folder,link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("Fédération Française de danse","PROJET_FEDERATION_FRANCAISE_DE_DANSE","Clients/FFDanse/Extranet","https://adobe-xd.com/ffdanse-extranet",0,"",4,4);
-INSERT INTO project(name, code, lastpass_folder,link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("NomProjet","code_nomprojet","","",1,"",6,5);
-INSERT INTO project(name, code, lastpass_folder,link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("laFEFEdeDEDE","code_1possible","","https://ledernierrevdedd.com",0,"",4,10);
-INSERT INTO project(name, code, lastpass_folder,link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("Random","","//","https://random.com",1,"",3,6);
-INSERT INTO project(name, code, lastpass_folder,link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("NomDeProjet","","","",0,"pas de notes",6,8);
-INSERT INTO project(name, code, lastpass_folder,link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("FEDIMA","code_fedima","last/but/not/least","",0,"",7,7);
-INSERT INTO project(name, code, lastpass_folder,link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("DEv","code_dev","","",0,"Le Developpeur Front",4,7);
-INSERT INTO project(name, code, lastpass_folder,link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("laDer","","https://derder","",0,"Vraiment la dernière",10,9);
-INSERT INTO project(name, code, lastpass_folder,link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("final","","https://final","",0,"Vraiment la dernière des final",11,11);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("FEDUI","PROJECT_FEDUI","/fedui/main","/fedui/main/mockups",0,"",1,2);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("Peugeot site public","PROJECT_PEUGEOT_SITE_PUBLIC","","",1,"Refonte du site",3,7);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("Fédération Française de danse","PROJET_FEDERATION_FRANCAISE_DE_DANSE","Clients/FFDanse/Extranet","https://adobe-xd.com/ffdanse-extranet",0,"",4,4);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("Peugeot site public","PROJECT_PEUGEOT_SITE_PUBLIC","","",1,"Maintenance",3,7);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("Mixzo","PROJECT_MIXZO","","https://mixzo.com",0,"",4,9);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("Extranet","PROJECT_EXTRANET","//","https://trandom.com",1,"",3,6);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("RENAULT SERVICE","PROJECT_RENAULT_SERVICE","","",1,"pas de notes",6,8);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("FEDIMA","PROJECT_","last/but/not/least","",0,"",7,7);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("DEv","PROJECT_","","",0,"Le Developpeur Front",4,7);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("laDer","PROJECT_","https://derder","",0,"Vraiment la dernière",10,9);
 
 INSERT INTO environment(name, link, ip_address, ssh_port, ssh_username, phpmyadmin_link, ip_restriction, project_id) values ("Production", "c:un/chemin/absolue/Production", "192.168.0.0", 80, "root", "ns00.wistee.fr", 0, 1);
 INSERT INTO environment(name, link, ip_address, ssh_port, ssh_username, phpmyadmin_link, ip_restriction, project_id) values ("Livrable", "c:un/chemin/absolue/Livrable", "192.168.0.10", 80, "user", "ns11.wistee.fr", 1, 2);

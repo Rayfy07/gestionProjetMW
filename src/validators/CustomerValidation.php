@@ -16,7 +16,7 @@
                 return $input;
             }
 
-            if(!empty($customer->getId()))
+            if(!empty(verify($customer->getName())))
             {
                 $customer->setName(verify($customer->getName()));
                 $customer->setCode(str_replace(" ", "_", strtoupper("CUST_".verify($customer->getCode()))));
