@@ -4,7 +4,8 @@ namespace App\connection;
 
 use PDO, PDOExeption;
 
-class DataBaseConnection{
+class DataBaseConnection
+{
 
 	private static $dbHost= "localhost";
 	private static $dbName = "test";
@@ -21,8 +22,8 @@ class DataBaseConnection{
 				self::$dbUser,
 				self::$dbUserPassword
 			);
-		} catch (PDOExeption $e) {
-			return $e->getMessage();
+		} catch (\PDOException) {
+			return false;
 		}
 		return self::$connection;
 	}

@@ -23,7 +23,8 @@ if (isset($_POST["submit"])) {
     );
 
     if (CustomerValidation::isValid($customer)) {
-        if (!CustomerRepository::nameExist($customer->getName())) {
+        $nameExist = CustomerRepository::nameExist($customer->getName());
+        if ($nameExist === false) {
             if (CustomerRepository::insert($customer)) {
                 $validate = "Le Client a bien été ajouté";
                 $code = "";
@@ -33,7 +34,7 @@ if (isset($_POST["submit"])) {
             } else {
                 $error = "Erreur dans l'ajout du client";
             }
-        } elseif (CustomerRepository::nameExist($customer->getName()) == null) {
+        } elseif ($nameExist === null) {
             $error = "Problème de connexion";
         } else {
             $error = "Ce client existe déjà";

@@ -17,9 +17,7 @@ $validate = "";
 $error = "";
 $errorFounding = "";
 
-if (isset($_GET["id"])) {
-    $id = $_GET["id"];
-
+if (isset($_GET["id"]) && $id = intVal($_GET["id"])) {
     if ($customer = CustomerRepository::selectById($id)) {
         $name = $customer->getName();
         $code = $customer->getCode();
@@ -75,7 +73,7 @@ if (isset($_POST["edit"])) {
 
         <?php
 
-        if ($errorFounding != "") {
+        if ($errorFounding != "" && $error == "") {
             echo'   <div class="alert alert-danger" role="alert">
                             <p>'.$errorFounding.'</p>
                         </div>
