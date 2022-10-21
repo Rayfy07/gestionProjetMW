@@ -19,8 +19,14 @@ class Contact implements
     use IdTrait;
     use HostCustomerTrait;
 
-    public function __construct(int $id, private string $email, private string $phoneNumber, private string $role, Host $host, Customer $customer)
-    {
+    public function __construct(
+        int $id,
+        private string $email,
+        private string $phoneNumber,
+        private string $role,
+        Host $host,
+        Customer $customer
+    ) {
         $this->id = $id;
         $this->host = $host;
         $this->customer = $customer;

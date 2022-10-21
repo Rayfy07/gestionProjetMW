@@ -26,8 +26,17 @@ class Project implements
     use CodeNotesTrait;
     use HostCustomerTrait;
 
-    public function __construct(int $id, string $name, string $code, private string $lastPassFolder, private string $linkMockUps, private bool $managedServer, string $notes, Host $host, Customer $customer)
-    {
+    public function __construct(
+        int $id,
+        string $name,
+        string $code,
+        private string $lastPassFolder,
+        private string $linkMockUps,
+        private bool $managedServer,
+        string $notes,
+        Host $host,
+        Customer $customer
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->code = $code;

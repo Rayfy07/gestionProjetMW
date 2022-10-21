@@ -25,9 +25,29 @@ $customer2 = new Customer(2, "code", "name", "noteu");
 
 $contact1 = new Contact(1, "@","phon","role", $host1, $customer1);
 
-$project1 = new Project(1,"project", "clac", "pass","mook", true, "noteu", $host2, $customer1);
+$project1 = new Project(
+    1,
+    "project",
+    "clac",
+    "pass",
+    "mook",
+    true,
+    "noteu",
+    $host2,
+    $customer1
+);
 
-$environment1 = new Environment(1, "name", "link", "adresseIp",23 , "sshuser", "myadmin", true, $project1);
+$environment1 = new Environment(
+    1,
+    "name",
+    "link",
+    "adresseIp",
+    23,
+    "sshuser",
+    "myadmin",
+    true,
+    $project1
+);
 
 $database = DataBaseConnection::disconnect();
 ?>

@@ -17,49 +17,42 @@ $validate = "";
 $error = "";
 $errorFounding = "";
 
-if(isset($_GET["id"]))
-{
+if (isset($_GET["id"])) {
     $id = $_GET["id"];
 
-    if($customer = CustomerRepository::selectById($id))
-    {
+    if ($customer = CustomerRepository::selectById($id)) {
         $name = $customer->getName();
         $code = $customer->getCode();
         $notes = $customer->getNotes();
-    }
-    else
-    {
+    } else {
         $errorFounding = "Ce client n'existe pas";
     }
-}
-else
-{
-    $errorFounding = "Un problème a été rencontré dans le chargement de la page";
+} else {
+    $errorFounding = "Un problème a été rencontré 
+        dans le chargement de la page";
 }
 
 if (isset($_POST["edit"])) {
 
-    $customer = new Customer($id, $_POST["name-customer"], $_POST["name-customer"], $_POST["note-customer"]);
+    $customer = new Customer(
+        $id,
+        $_POST["name-customer"],
+        $_POST["name-customer"],
+        $_POST["note-customer"]
+    );
 
-    if(CustomerValidation::isValid($customer))
-    {
-        if (CustomerRepository::update($customer))
-        {
+    if(CustomerValidation::isValid($customer)) {
+        if (CustomerRepository::update($customer)) {
             $validate = "Le Client a bien été modifié";
             $name = $customer->getName();
             $code = $customer->getCode();
             $notes = $customer->getNotes();
-        }
-        else
-        {
+        } else {
             $error = "Erreur dans la modification du client";
         }
-    }
-    else
-    {
+    } else {
         $error = "Un des champs est mal rempli";
     }
-
 }
 
 ?>
@@ -82,15 +75,12 @@ if (isset($_POST["edit"])) {
 
         <?php
 
-        if($errorFounding != "")
-        {
+        if ($errorFounding != "") {
             echo'   <div class="alert alert-danger" role="alert">
                             <p>'.$errorFounding.'</p>
                         </div>
                     ';
-        }
-        else
-        {
+        } else {
             echo'   <form action="" method="post">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="name-customer" id="floatingName" placeholder="Jean Dupont" value="'.$name.'">
@@ -107,13 +97,13 @@ if (isset($_POST["edit"])) {
                     <button class="btn btn-secondary mb-3" type="reset">Annuler la modification du client</button>
                     <button class="btn btn-primary mb-3" name="edit" type="submit">Modifier le client</button>';
         
-            if($validate != "") {
+            if ($validate != "") {
                 echo'   <div class="alert alert-success" role="alert">
                             <p>'.$validate.'</p>
                         </div>
                     ';
             }
-            else if($error != "") {
+            elseif ($error != "") {
                 echo'   <div class="alert alert-danger" role="alert">
                             <p>'.$error.'</p>
                         </div>

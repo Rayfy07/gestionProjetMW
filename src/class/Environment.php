@@ -18,8 +18,17 @@ class Environment implements
     use IdTrait;
     use NameTrait;
 
-    public function __construct(int $id, string $name, private string $link, private string $ipAddress, private int $sshPort, private string $sshUserName, private string $phpMyAdminLink, private bool $ipRestriction, private Project $project)
-    {
+    public function __construct(
+        int $id,
+        string $name,
+        private string $link,
+        private string $ipAddress,
+        private int $sshPort,
+        private string $sshUserName,
+        private string $phpMyAdminLink,
+        private bool $ipRestriction,
+        private Project $project
+    ) {
         $this->id = $id;
         $this->name = $name;
     }

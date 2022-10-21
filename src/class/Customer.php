@@ -21,8 +21,12 @@ class Customer implements
     use NameTrait; 
     use CodeNotesTrait;
 
-    public function __construct(int $id, string $code, string $name, string $notes)
-    {
+    public function __construct(
+        int $id,
+        string $code,
+        string $name,
+        string $notes
+    ) {
         $this->id = $id;
         $this->code = $code;
         $this->name = $name;

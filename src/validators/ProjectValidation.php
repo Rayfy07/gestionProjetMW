@@ -16,18 +16,19 @@ class ProjectValidation
             return $input;
         }
 
-        function verifyInt(int $input): int
-        {
-        }
+        //A COMPLETER AVEC TEST
 
-        if(
+        if (
             !empty(verifyString($project->getName()))
             && !empty(verifyInt($project->getHost()))
             && !empty(verifyInt($project->getCustomer()))
-        )
-        {
+        ) {
             $projet->setName(verifyString($projet->getName()));
-            $projet->setCode(str_replace(" ", "_", strtoupper("CUST_".verifyString($projet->getCode()))));
+            $projet->setCode(str_replace(
+                " ",
+                "_",
+                strtoupper("CUST_".verifyString($projet->getCode()))
+            ));
             $projet->setLastPassFolder(verifyString($projet->getLastPassFolder()));
             $projet->setLinkMockUps(verifyString($projet->getLinkMockUps()));
             $projet->setManagedServer(verifyString($projet->getManagedServer()));
@@ -35,9 +36,7 @@ class ProjectValidation
             $projet->setHost(verifyInt($projet->getHost()));
             $projet->setCustomer(verifyInt($projet->getCustomer()));
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }

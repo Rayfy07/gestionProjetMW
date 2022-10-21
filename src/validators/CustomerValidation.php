@@ -2,7 +2,11 @@
 
 namespace App\validators;
 
-use App\class\Customer;
+use App\
+{
+    class\Customer,
+    repository\CustomerRepository
+};
 
 class CustomerValidation
 {
@@ -16,15 +20,16 @@ class CustomerValidation
             return $input;
         }
 
-        if(!empty(verify($customer->getName())))
-        {
+        if (!empty(verify($customer->getName()))) {
             $customer->setName(verify($customer->getName()));
-            $customer->setCode(str_replace(" ", "_", strtoupper("CUST_".verify($customer->getCode()))));
+            $customer->setCode(str_replace(
+                    " ",
+                    "_",
+                    strtoupper("CUST_".verify($customer->getCode()))
+            ));
             $customer->setNotes(verify($customer->getNotes()));
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }

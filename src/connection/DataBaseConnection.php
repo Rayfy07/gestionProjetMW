@@ -15,10 +15,13 @@ class DataBaseConnection{
 
 	public static function connect()
 	{
-		try{
-			self::$connection = new PDO("mysql:host=".self::$dbHost.";dbname=".self::$dbName,self::$dbUser,self::$dbUserPassword);
-		}
-		catch(PDOExeption $e){
+		try {
+			self::$connection = new PDO(
+				"mysql:host=".self::$dbHost.";dbname=".self::$dbName,
+				self::$dbUser,
+				self::$dbUserPassword
+			);
+		} catch (PDOExeption $e){
 			die($e->getMessage());
 		}
 		return self::$connection;

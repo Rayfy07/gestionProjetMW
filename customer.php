@@ -14,25 +14,31 @@ $code = "";
 $validate = "";
 $error = "";
 
-if (isset($_POST["submit"]))
-{
-    $customer = new Customer(0, $_POST["name-customer"], $_POST["name-customer"], $_POST["note-customer"]);
+if (isset($_POST["submit"])) {
+    $customer = new Customer(
+        0,
+        $_POST["name-customer"],
+        $_POST["name-customer"],
+        $_POST["note-customer"]
+    );
 
-    if(CustomerValidation::isValid($customer))
-    {
-        if (CustomerRepository::insert($customer))
-        {
-            $validate = "Le Client a bien été ajouté";
-            $code = "";
-            header("Location: update-customer-general.php?id=".$customer->getId());
+    if (CustomerValidation::isValid($customer)) {
+        if (!CustomerRepository::nameExist($customer->getName())) {
+            if (CustomerRepository::insert($customer)) {
+                $validate = "Le Client a bien été ajouté";
+                $code = "";
+                header(
+                    "Location: update-customer-general.php?id=".$customer->getId()
+                );
+            } else {
+                $error = "Erreur dans l'ajout du client";
+            }
+        } elseif (CustomerRepository::nameExist($customer->getName()) == null) {
+            $error = "Problème de connexion";
+        } else {
+            $error = "Ce client existe déjà";
         }
-        else
-        {
-            $error = "Erreur dans l'ajout du client";
-        }
-    }
-    else
-    {
+    } else {
         $error = "Le nom doit être renseigné";
     }
 }
@@ -70,13 +76,12 @@ if (isset($_POST["submit"]))
             <button class="btn btn-primary mb-3" name="submit" type="submit">Ajouter le client</button>
 
             <?php 
-                if($validate != "") {
+                if ($validate != "") {
                     echo'   <div class="alert alert-success" role="alert">
                                 <p>'.$validate.'</p>
                             </div>
                         ';
-                }
-                else if($error != "") {
+                } elseif ($error != "") {
                     echo'   <div class="alert alert-danger" role="alert">
                                 <p>'.$error.'</p>
                             </div>

@@ -16,15 +16,16 @@ class HostValidation
             return $input;
         }
 
-        if(!empty(verify($host->getName())))
-        {
+        if (!empty(verify($host->getName()))) {
             $host->setName(verify($host->getName()));
-            $host->setCode(str_replace(" ", "_", strtoupper("CUST_".verify($host->getCode()))));
+            $host->setCode(str_replace(
+                " ",
+                "_",
+                strtoupper("CUST_".verify($host->getCode()))
+            ));
             $host->setNotes(verify($host->getNotes()));
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
