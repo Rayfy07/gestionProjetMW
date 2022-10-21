@@ -68,14 +68,14 @@ class CustomerRepository
     {
         try {
             $database = DataBaseConnection::connect();
-            $update = $database->prepare(
+            $delete = $database->prepare(
                 "DELETE FROM customer WHERE id=?"
             );
-            $update->execute(array($customer->getId()));
+            $delete->execute(array($customer->getId()));
 
             $database = DataBaseConnection::disconnect();
             return true;
-        }  catch(Exeption) {
+        } catch (Exeption) {
             return false;
         }
     }
@@ -143,6 +143,27 @@ class CustomerRepository
             $database = DataBaseConnection::connect();
             $select = $database->prepare(
                 "SELECT * FROM customer WHERE name = ?"
+            );
+            $select->execute(array($name));
+
+            if($rowSelect = $select->fetch()) {
+                $database = DataBaseConnection::disconnect();
+                return true;
+            } else {
+                $database = DataBaseConnection::disconnect();
+                return false;
+            }
+        } catch (Exeption) {
+            return null;
+        }
+    }
+
+    public static function hasProject($id): ?bool
+    {
+        try {
+            $database = DataBaseConnection::connect();
+            $select = $database->prepare(
+                "SELECT * FROM project WHERE customer_id = ?"
             );
             $select->execute(array($name));
 
