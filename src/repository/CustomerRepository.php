@@ -33,7 +33,7 @@ class CustomerRepository
 
             $database = DataBaseConnection::disconnect();
             return true;
-        } catch (Exeption) {
+        } catch (Exception) {
             return false;
         }
     }
@@ -59,7 +59,7 @@ class CustomerRepository
 
             $database = DataBaseConnection::disconnect();
             return true;
-        } catch(Exeption) {
+        } catch(Exception) {
             return false;
         }
     }
@@ -75,7 +75,7 @@ class CustomerRepository
 
             $database = DataBaseConnection::disconnect();
             return true;
-        } catch (Exeption) {
+        } catch (Exception) {
             return false;
         }
     }
@@ -105,7 +105,7 @@ class CustomerRepository
 
             $database = DataBaseConnection::disconnect();
             return $customers;
-        } catch (Exeption) {
+        } catch (Exception) {
             return null;
         }
     }
@@ -132,7 +132,7 @@ class CustomerRepository
             } else {
                 return null;
             }
-        } catch (Exeption) {
+        } catch (Exception) {
             return null;
         }
     }
@@ -153,7 +153,7 @@ class CustomerRepository
                 $database = DataBaseConnection::disconnect();
                 return false;
             }
-        } catch (Exeption) {
+        } catch (Exception) {
             return null;
         }
     }
@@ -174,7 +174,7 @@ class CustomerRepository
                 $database = DataBaseConnection::disconnect();
                 return false;
             }
-        } catch (Exeption) {
+        } catch (Exception) {
             return null;
         }
     }

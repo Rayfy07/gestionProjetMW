@@ -21,8 +21,8 @@ class DataBaseConnection{
 				self::$dbUser,
 				self::$dbUserPassword
 			);
-		} catch (PDOExeption $e){
-			die($e->getMessage());
+		} catch (PDOExeption $e) {
+			return $e->getMessage();
 		}
 		return self::$connection;
 	}
