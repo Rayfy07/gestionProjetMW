@@ -14,7 +14,11 @@ $code = $validate = $error = "";
 
 if (isset($_POST["submit"]))
 {
-    $customer = new Customer(0, $_POST["name-customer"], $_POST["name-customer"], $_POST["note-customer"]);
+    $select = $database -> prepare("SELECT id FROM customer ORDER BY id DESC limit 1");
+    $select -> execute();
+    $id = $select -> fetch();
+
+    $customer = new Customer($id["id"], $_POST["name-customer"], $_POST["name-customer"], $_POST["note-customer"]);
 
     if(CustomerValidation::isValid($customer))
     {
@@ -22,7 +26,6 @@ if (isset($_POST["submit"]))
         {
             $validate = "Le Client a bien été ajouté";
             $code = "";
-            header("Location: update-customer-general.php?id=".$customer->getId());
         }
         else
         {
@@ -31,7 +34,7 @@ if (isset($_POST["submit"]))
     }
     else
     {
-        $error = "Le nom doit être renseigné";
+        $error = "Un des champs est mal rempli";
     }
 }
 

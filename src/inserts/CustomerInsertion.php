@@ -12,15 +12,8 @@ class CustomerInsertion
         try
         {
             $database = DataBaseConnection::connect();
-            $insert = $database->prepare("INSERT INTO customer(code, name, notes) VALUES (?,?,?)");
-            $insert->execute(array($customer->getCode(), $customer->getName(), $customer->getNotes()));
-
-            $select = $database->prepare("SELECT LAST_INSERT_ID() as id FROM customer");
-            $select->execute();
-            $newId = $select->fetch();
-
-            $customer->setId($newId['id']);
-
+            $insert = $database->prepare("INSERT INTO customer VALUES (?,?,?,?)");
+            $insert->execute(array($customer->getId(), $customer->getCode(), $customer->getName(), $customer->getNotes()));
             try
             {
                 $database = DataBaseConnection::disconnect();
