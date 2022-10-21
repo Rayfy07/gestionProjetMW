@@ -6,7 +6,6 @@ require "Autoloader.php";
 use App\connection\DataBaseConnection;
 use App\class\Customer;
 use App\validators\CustomerValidation;
-use App\inserts\CustomerInsertion;
 
 $database = DataBaseConnection::connect();
 
