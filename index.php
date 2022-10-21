@@ -4,12 +4,15 @@ require_once __DIR__."/require/navbar.php";
 
 require "Autoloader.php";
 
-use App\class\Host;
-use App\class\Customer;
-use App\class\Contact;
-use App\class\Project;
-use App\class\Environment;
-use App\connection\DataBaseConnection;
+use App\
+{
+    class\Host,
+    class\Customer,
+    class\Contact,
+    class\Project,
+    class\Environment,
+    connection\DataBaseConnection
+};
 
 $database = DataBaseConnection::connect();
 
