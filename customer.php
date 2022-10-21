@@ -3,28 +3,28 @@
 require_once __DIR__."/require/navbar.php";
 require "Autoloader.php";
 
-use App\connection\DataBaseConnection;
-use App\class\Customer;
-use App\validators\CustomerValidation;
+use App\
+{
+    class\Customer,
+    validators\CustomerValidation,
+    repository\CustomerRepository
+};
 
-$database = DataBaseConnection::connect();
-
-$code = $validate = $error = "";
+$code = "";
+$validate = "";
+$error = "";
 
 if (isset($_POST["submit"]))
 {
-    $select = $database -> prepare("SELECT id FROM customer ORDER BY id DESC limit 1");
-    $select -> execute();
-    $id = $select -> fetch();
-
-    $customer = new Customer($id["id"], $_POST["name-customer"], $_POST["name-customer"], $_POST["note-customer"]);
+    $customer = new Customer(0, $_POST["name-customer"], $_POST["name-customer"], $_POST["note-customer"]);
 
     if(CustomerValidation::isValid($customer))
     {
-        if (CustomerInsertion::insert($customer))
+        if (CustomerRepository::insert($customer))
         {
             $validate = "Le Client a bien été ajouté";
             $code = "";
+            header("Location: update-customer-general.php?id=".$customer->getId());
         }
         else
         {
@@ -33,12 +33,9 @@ if (isset($_POST["submit"]))
     }
     else
     {
-        $error = "Un des champs est mal rempli";
+        $error = "Le nom doit être renseigné";
     }
 }
-
-$database = DataBaseConnection::disconnect();
-
 ?>
 
 
