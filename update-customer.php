@@ -33,7 +33,12 @@ if (isset($_GET["id"])) {
 
 if (isset($_POST["edit"])) {
 
-    $customer = new Customer($id, $_POST["name-customer"], $_POST["name-customer"], $_POST["note-customer"]);
+    $customer = new Customer(
+        $id,
+        $_POST["name-customer"],
+        $_POST["name-customer"],
+        $_POST["note-customer"]
+    );
 
     if (CustomerValidation::isValid($customer))
     {
