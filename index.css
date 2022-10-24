@@ -7,6 +7,14 @@ section {
     margin: 50px 50px 50px 450px;
 }
 
+i {
+    cursor: pointer;
+}
+
+.alert p {
+    margin: 0;
+}
+
 /* css navbar */
 
 nav img {
