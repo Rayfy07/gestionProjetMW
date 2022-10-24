@@ -14,90 +14,101 @@ $code = "";
 $validate = "";
 $error = "";
 
-if (isset($_POST["submit"])) {
+if (isset($_POST["delete-contact"])) {
+
+    $id = $_POST["id"];
+    $code = $_POST["code"];
+    $name = $_POST["name"];
+    $notes = $_POST["notes"];
+
     $customer = new Customer(
-        0,
-        $_POST["name-customer"],
-        $_POST["name-customer"],
-        $_POST["note-customer"]
+        $id,
+        $code,
+        $name,
+        $notes
     );
 
-    if (CustomerValidation::isValid($customer)) {
-        $nameExist = CustomerRepository::nameExist($customer->getName());
-        if ($nameExist === false) {
-            if (CustomerRepository::insert($customer)) {
-                $validate = "Le Client a bien été ajouté";
-                $code = "";
-                header(
-                    "Location: update-customer-general.php?id=".$customer->getId()
-                );
-            } else {
-                $error = "Erreur dans l'ajout du client";
-            }
-        } elseif ($nameExist === null) {
-            $error = "Problème de connexion";
-        } else {
-            $error = "Ce client existe déjà";
-        }
+    if(CustomerRepository::delete($customer))
+    {
+        $validate = "Le Client a bien été supprimé";
+        header("Location: customer.php");
+    } elseif (CustomerRepository::hasProject($id)) {
+        $error = "Le client est lié à un projet et ne peut être supprimer";
     } else {
-        $error = "Le nom doit être renseigné";
+        $error = "Echec de la suppression du client";
     }
 }
+
+$customers = CustomerRepository::selectAll();
 ?>
 
 
 <section class="add-customer">
-    <h1>Nouveau client</h1>
-    <div class="flex-add-customer">
-        <ul>
-            <li id="infoBtn" class="btn btn-link">
-                Informations générales
-            </li>
-            <li id="contactBtn" class="btn btn-link">
-                Contact
-            </li>
-        </ul>
-    </div>  
-    
-    <div id="info">
-        <form action="" method="post">
-            <div class="form-floating mb-3">
-                <input type="text" name="name-customer" class="form-control" id="floatingName" placeholder="Jean Dupont">
-                <label for="floatingName">Nom du client</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" name="code-intra" class="form-control" id="floatingCode" disabled placeholder=" ">
-                <label for="floatingCode">Code interne généré automatiquement</label>
-            </div>
-            <div class="form-floating mb-3">
-                <textarea class="form-control" name="note-customer" placeholder="Notes/Remarques" id="floatingNote" style="height: 100px"></textarea>
-                <label for="floatingNote">Notes ou remarques</label>
-            </div>
-            <button class="btn btn-secondary mb-3" type="reset">Annuler l'ajout du client</button>
-            <button class="btn btn-primary mb-3" name="submit" type="submit">Ajouter le client</button>
+    <h1>Liste des clients <a href="add-customer.php"><i class="bi bi-plus-circle" title="Ajouter un nouveau contact"></i></a></h1>
 
-            <?php 
-                if ($validate != "") {
-                    echo'   <div class="alert alert-success" role="alert">
-                                <p>'.$validate.'</p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Code Interne</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Notes/remarques</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+            foreach ($customers as $value) {
+                echo '
+                <tr>
+                    <th scope="row">'.$value->getCode().'</th>
+                    <td>'.$value->getName().'</td>
+                    <td>'.$value->getNotes().'</td>
+                    <td>
+                        <a href="update-customer-general.php?id='.$value->getId().'" class="btn btn-link">Modifier</a> 
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal'.$value->getId().'">Supprimer le client</button>
+                            <div class="modal fade" id="deleteModal'.$value->getId().'" tabindex="-1" aria-labelledby="deleteModalLabel'.$value->getId().'" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel'.$value->getId().'">Supperssion du client</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h3>Êtes-vous sûr de vouloir supprimer le client n°'.$value->getId().'</h3>
+                                            <p>Le client '.$value->getName().'</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-link" data-bs-dismiss="modal">Annuler la suppression</button>
+                                            <form method="post">
+                                                <input type="hidden" name="id" value="'.$value->getId().'">
+                                                <input type="hidden" name="code" value="'.$value->getCode().'">
+                                                <input type="hidden" name="name" value="'.$value->getName().'">
+                                                <input type="hidden" name="notes" value="'.$value->getNotes().'">
+                                                <button class="btn btn-danger" name="delete-contact" type="submit" data-bs-toggle="modal" data-bs-target="#deleteModal'.$value->getId().'">Supprimer le contact</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        ';
-                } elseif ($error != "") {
-                    echo'   <div class="alert alert-danger" role="alert">
-                                <p>'.$error.'</p>
-                            </div>
-                        ';
-                }
-            ?>
-        </form>
-    </div>
-
-    <div id="contact">
-        <h2>Contact</h2>
-    </div>
-    
+                    </td>
+                </tr>
+                ';
+            }
+            if ($validate != "") {
+                echo'   <div class="alert alert-success" role="alert">
+                            <p>'.$validate.'</p>
+                        </div>
+                    ';
+            }
+            elseif ($error != "") {
+                echo'   <div class="alert alert-danger" role="alert">
+                            <p>'.$error.'</p>
+                        </div>
+                    ';
+            }
+        ?>
+        </tbody>
+    </table>
 </section>
-
-<script src="/gestionProjetMW/javaScript/client.js"></script>
 
 <?php require_once __DIR__."/require/footer.php"; ?>
