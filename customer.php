@@ -64,7 +64,7 @@ $customers = CustomerRepository::selectAll();
                     <td>'.$value->getName().'</td>
                     <td>'.$value->getNotes().'</td>
                     <td>
-                        <a href="update-customer-general.php?id='.$value->getId().'" class="btn btn-link">Modifier</a> 
+                        <a href="update-customer.php?id='.$value->getId().'" class="btn btn-link">Modifier</a> 
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal'.$value->getId().'">Supprimer le client</button>
                             <div class="modal fade" id="deleteModal'.$value->getId().'" tabindex="-1" aria-labelledby="deleteModalLabel'.$value->getId().'" aria-hidden="true">
                                 <div class="modal-dialog">
