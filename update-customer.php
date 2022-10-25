@@ -19,13 +19,17 @@ $errorFounding = "";
 
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
-
-    if ($customer = CustomerRepository::selectById($id)) {
-        $name = $customer->getName();
-        $code = $customer->getCode();
-        $notes = $customer->getNotes();
+    
+    if (is_numeric($id)) {
+        if ($customer = CustomerRepository::selectById($id)) {
+            $name = $customer->getName();
+            $code = $customer->getCode();
+            $notes = $customer->getNotes();
+        } else {
+            $errorFounding = "Ce client n'existe pas";
+        }
     } else {
-        $errorFounding = "Ce client n'existe pas";
+        $errorFounding = "Impossible de faire une modification sur un ID non int";
     }
 } else {
     $errorFounding = "Un problème a été rencontré dans le chargement de la page";
