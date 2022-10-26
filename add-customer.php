@@ -23,15 +23,20 @@ if (isset($_POST["add-customer"]))
         $_POST["note-customer"]
     );
 
-    if(CustomerValidation::isValid($customer))
-    {
-        if (CustomerRepository::insert($customer))
-        {
-            $validate = "Le Client a bien été ajouté";
-            $code = "";
-            header("Location: update-customer.php?id=".$customer->getId());
+    if (CustomerValidation::isValid($customer)) {
+        $nameExist = CustomerRepository::nameExist($customer->getName());
+        if ($nameExist === false) {
+            if (CustomerRepository::insert($customer)) {
+                $validate = "Le Client a bien été ajouté";
+                $code = "";
+                header("Location: update-customer.php?id=".$customer->getId());
+            } else {
+                $error = "Erreur dans l'ajout du client";
+            }
+        } elseif ($nameExist === null) {
+            $error = "Problème de connexion";
         } else {
-            $error = "Erreur dans l'ajout du client";
+            $error = "Ce client existe déjà";
         }
     } else {
         $error = "Le nom doit être renseigné";

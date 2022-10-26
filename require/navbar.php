@@ -42,7 +42,7 @@
                         </li>
                         <li>
                             <i class="bi bi-hdd-rack"></i>
-                            <a href="#">Hébergeurs</a>
+                            <a href="/gestionProjetMW/host.php">Hébergeurs</a>
                         </li>
                     </ul>
                 </div>

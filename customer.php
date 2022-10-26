@@ -28,14 +28,13 @@ if (isset($_POST["delete-contact"])) {
         $notes
     );
 
-    if(CustomerRepository::delete($customer))
+    if(CustomerRepository::hasProject($id))
     {
-        $validate = "Le Client a bien été supprimé";
-        header("Location: customer.php");
-    } elseif (CustomerRepository::hasProject($id)) {
         $error = "Le client est lié à un projet et ne peut être supprimer";
+    } elseif (CustomerRepository::delete($customer)) {
+        $validate = "Le Client a bien été supprimé";
     } else {
-        $error = "Echec de la suppression du client";
+        $error = "Echec de la suppression du client (Peut etre lié à un contact)";
     }
 }
 

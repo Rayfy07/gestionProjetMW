@@ -28,13 +28,13 @@ if (isset($_POST["delete-host"])) {
         $notes
     );
 
-    if(HostRepository::delete($host))
+    if(HostRepository::hasProject($id))
     {
-        $validate = "L'hébergeur a bien été supprimé";
-    } elseif (HostRepository::hasProject($id)) {
         $error = "L'hébergeur est lié à un projet et ne peut être supprimer";
+    } elseif (HostRepository::delete($host)) {
+        $validate = "L'hébergeur a bien été supprimé";
     } else {
-        $error = "Echec de la suppression de l'hébergeur";
+        $error = "Echec de la suppression de l'hébergeur (Peut etre lié à un contact)";
     }
 }
 

@@ -73,10 +73,10 @@ class HostRepository
     {
         try {
             if($database = DataBaseConnection::connect()) {
-                $update = $database->prepare(
+                $delete = $database->prepare(
                     "DELETE FROM host WHERE id=?"
                 );
-                $update->execute(array($host->getId()));
+                $delete->execute(array($host->getId()));
 
                 $database = DataBaseConnection::disconnect();
                 return true;
@@ -155,7 +155,7 @@ class HostRepository
                 $select = $database->prepare(
                     "SELECT * FROM project WHERE host_id = ?"
                 );
-                $select->execute(array($name));
+                $select->execute(array($id));
 
                 if($rowSelect = $select->fetch()) {
                     $database = DataBaseConnection::disconnect();

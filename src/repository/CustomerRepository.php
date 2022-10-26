@@ -183,7 +183,7 @@ class CustomerRepository
                 $select = $database->prepare(
                     "SELECT * FROM project WHERE customer_id = ?"
                 );
-                $select->execute(array($name));
+                $select->execute(array($id));
 
                 if($rowSelect = $select->fetch()) {
                     $database = DataBaseConnection::disconnect();
