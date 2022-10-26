@@ -27,11 +27,11 @@ if (isset($_POST["add-host"]))
     {
         if (HostRepository::insert($host))
         {
-            $validate = "Le Client a bien été ajouté";
+            $validate = "L'hébergeur a bien été ajouté";
             $code = "";
             header("Location: update-host.php?id=".$host->getId());
         } else {
-            $error = "Erreur dans l'ajout du client";
+            $error = "Erreur dans l'ajout de l'hébergeur";
         }
     } else {
         $error = "Le nom doit être renseigné";
@@ -41,7 +41,7 @@ if (isset($_POST["add-host"]))
 
 
 <section class="add-customer">
-    <h1>Nouveau héberugeur</h1>
+    <h1>Nouveau hébergeur</h1>
     <div class="flex-add-customer">
         <ul>
             <li id="infoBtn" class="btn btn-link">
