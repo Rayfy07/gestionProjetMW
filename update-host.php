@@ -29,7 +29,7 @@ if (isset($_GET["id"])) {
             $errorFounding = "Ce client n'existe pas";
         }
     } else {
-        $errorFounding = "Impossible de faire une modification sur un ID non int";
+        $errorFounding = "Impossible de faire une modification sur un ID n'étant pas un entier";
     }
 } else {
     $errorFounding = "Un problème a été rencontré dans le chargement de la page";
@@ -50,12 +50,12 @@ if (isset($_POST["edit-host"])) {
     if (HostValidation::isValid($host))
     {
         if (HostRepository::update($host)) {
-            $validate = "Le Client a bien été modifié";
+            $validate = "L'hébergeur a bien été modifié";
             $name = $host->getName();
             $code = $host->getCode();
             $notes = $host->getNotes();
         } else {
-            $error = "Erreur dans la modification du client";
+            $error = "Erreur dans la modification du client (Ce nom correspond peut-être à un client déjà existant)";
         }
     } else {
         $error = "Un des champs est mal rempli";

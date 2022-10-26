@@ -29,7 +29,7 @@ if (isset($_GET["id"])) {
             $errorFounding = "Ce client n'existe pas";
         }
     } else {
-        $errorFounding = "Impossible de faire une modification sur un ID non int";
+        $errorFounding = "Impossible de faire une modification sur un ID n'étant pas un entier";
     }
 } else {
     $errorFounding = "Un problème a été rencontré dans le chargement de la page";
