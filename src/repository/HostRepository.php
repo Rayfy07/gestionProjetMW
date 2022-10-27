@@ -177,6 +177,54 @@ class HostRepository
         }
     }
 
+    public static function hostExist($id): ?bool
+    {
+        try {
+            if($database = DataBaseConnection::connect()) {
+                $select = $database->prepare(
+                    "SELECT * FROM host WHERE id = ?"
+                );
+                $select->execute(array($id));
+    
+                if ($rowSelect = $select->fetch()) {
+                    $database = DataBaseConnection::disconnect();
+                    return true;
+                } else {
+                    $database = DataBaseConnection::disconnect();
+                    return false;
+                }
+            } else {
+                return null;
+            };
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
+    public static function nameExist($name): ?bool
+    {
+        try {
+            if($database = DataBaseConnection::connect()) {
+                $select = $database->prepare(
+                    "SELECT * FROM host WHERE name = ?"
+                );
+                $select->execute(array($name));
+    
+                if ($rowSelect = $select->fetch()) {
+                    $database = DataBaseConnection::disconnect();
+                    return true;
+                } else {
+                    $database = DataBaseConnection::disconnect();
+                    return false;
+                }
+            } else {
+                return null;
+            };
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
     public static function hasProject($id): ?bool
     {
         try {

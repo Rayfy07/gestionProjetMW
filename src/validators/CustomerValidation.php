@@ -2,11 +2,7 @@
 
 namespace App\validators;
 
-use App\
-{
-    class\Customer,
-    repository\CustomerRepository
-};
+use App\class\Customer;
 
 class CustomerValidation
 {

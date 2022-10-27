@@ -182,6 +182,30 @@ class CustomerRepository
         }
     }
 
+    public static function customerExist($id): ?bool
+    {
+        try {
+            if($database = DataBaseConnection::connect()) {
+                $select = $database->prepare(
+                    "SELECT * FROM customer WHERE id = ?"
+                );
+                $select->execute(array($id));
+    
+                if ($rowSelect = $select->fetch()) {
+                    $database = DataBaseConnection::disconnect();
+                    return true;
+                } else {
+                    $database = DataBaseConnection::disconnect();
+                    return false;
+                }
+            } else {
+                return null;
+            };
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
     public static function nameExist($name): ?bool
     {
         try {
