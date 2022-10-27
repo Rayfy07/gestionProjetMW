@@ -19,41 +19,47 @@ $error = "";
 
 if (isset($_POST["add-project"]))
 {
-    $customer = CustomerRepository::selectByName($_POST["customer_id"]);
-    $host = HostRepository::selectByName($_POST["host_id"]);
 
-    if ($_POST["managed_server"] == null) {
-        $managedServer = false;
-    } else {
+    if (isset($_POST["managed_server"]))
+    {
         $managedServer = true;
+    } else {
+        $managedServer = false;
     }
 
-    var_dump($managedServer);
+    if (!empty($_POST["customer_id"]) AND !empty($_POST["host_id"]))
+    {
+        $customer = CustomerRepository::selectByName($_POST["customer_id"]);
+        $host = HostRepository::selectByName($_POST["host_id"]);
 
-    $project = new Project(
-        0,
-        $_POST["name-project"],
-        $code,
-        $_POST["lastpass_folder"],
-        $_POST["link_mock_ups"],
-        $managedServer,
-        $_POST["note-project"],
-        $host,
-        $customer
-    );
-    // if(ProjectValidation::isValid($project))
-    // {
-        if (ProjectRepository::insert($project))
+        $project = new Project(
+            0,
+            $_POST["name-project"],
+            $code,
+            $_POST["lastpass_folder"],
+            $_POST["link_mock_ups"],
+            $managedServer,
+            $_POST["note-project"],
+            $host,
+            $customer
+        );
+
+        if(ProjectValidation::isValid($project))
         {
-            $validate = "Le projet a bien été ajouté";
-            $code = "";
-            header("Location: update-project.php?id=".$project->getId());
+            if (ProjectRepository::insert($project))
+            {
+                $validate = "Le projet a bien été ajouté";
+                $code = "";
+                header("Location: update-project.php?id=".$project->getId());
+            } else {
+                $error = "Erreur dans l'ajout du projet";
+            }
         } else {
-            $error = "Erreur dans l'ajout du projet";
+            $error = "Le nom doit être renseigné";
         }
-    // } else {
-    //     $error = "Le nom doit être renseigné";
-    // }
+    } else {
+        $error = "L'hébergeur et le client doivent être renseigné";
+    }
 }
 
 $customers = CustomerRepository::selectAll();
@@ -68,9 +74,6 @@ $hosts = HostRepository::selectAll();
         <ul>
             <li id="infoBtn" class="btn btn-link">
                 Informations générales
-            </li>
-            <li id="contactBtn" class="btn btn-link">
-                Environnement
             </li>
         </ul>
     </div>  
@@ -134,28 +137,6 @@ $hosts = HostRepository::selectAll();
                         </div>';
                 }
             ?>
-        </form>
-    </div>
-    <div id="contact">
-        <form action="" method="post">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="name-contact" id="floatingName" placeholder="Jean Dupont">
-                <label for="floatingName">Nom du contact</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" name="role-contact" id="floatingRole" placeholder="Chef de projet">
-                <label for="floatingRole">Role du contact</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" name="mail-contact" id="floatingMail" placeholder="Jean.Dupont@gmail.com">
-                <label for="floatingMail">Mail du contact</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="phone" class="form-control" name="phone-contact" id="floatingPhone" placeholder="0102030405">
-                <label for="floatingPhone">Téléphone du contact</label>
-            </div>
-            <button class="btn btn-secondary mb-3" name="dont-add-contact" type="reset">Annuler l'ajout du contact</button>
-            <button class="btn btn-primary mb-3" name="add-contact" type="submit">Ajouter le contact</button>
         </form>
     </div>
 </section>
