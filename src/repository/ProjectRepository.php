@@ -31,12 +31,19 @@ class ProjectRepository
                     )
                     VALUES (?,?,?,?,?,?,?,?)"
                 );
+
+                if($project->getManagedServer()) {
+                    $managedServer = 1;
+                } else {
+                    $managedServer = 0;
+                }
+
                 $insert->execute(array(
                         $project->getName(), 
                         $project->getCode(),
                         $project->getLastPassFolder(),
                         $project->getLinkMockUps(),
-                        $project->getManagedServer(),
+                        $managedServer,
                         $project->getNotes(),
                         $project->getHost()->getId(),
                         $project->getCustomer()->getId()
