@@ -22,39 +22,34 @@ if (isset($_POST["add-project"]))
     $customer = CustomerRepository::selectByName($_POST["customer_id"]);
     $host = HostRepository::selectByName($_POST["host_id"]);
 
+    if ($_POST["managed_server"] == null) {
+        $managedServer = false;
+    } else {
+        $managedServer = true;
+    }
+
+    var_dump($managedServer);
+
     $project = new Project(
         0,
         $_POST["name-project"],
         $code,
         $_POST["lastpass_folder"],
         $_POST["link_mock_ups"],
-        0,
+        $managedServer,
         $_POST["note-project"],
         $host,
         $customer
     );
-
-    // var_dump($project);
-
     // if(ProjectValidation::isValid($project))
     // {
         if (ProjectRepository::insert($project))
         {
             $validate = "Le projet a bien été ajouté";
             $code = "";
-            
-            // header("Location: update-project.php?id=".$project->getId());
+            header("Location: update-project.php?id=".$project->getId());
         } else {
             $error = "Erreur dans l'ajout du projet";
-            // var_dump($project->getId()); 
-            // var_dump($project->getName()); 
-            // var_dump($project->getCode());
-            // var_dump($project->getLastPassFolder());
-            // var_dump($project->getLinkMockUps());
-            // var_dump($project->getManagedServer());
-            // var_dump($project->getNotes());
-            // var_dump($project->getHost()->getId());
-            // var_dump($project->getCustomer()->getId());
         }
     // } else {
     //     $error = "Le nom doit être renseigné";
@@ -164,7 +159,5 @@ $hosts = HostRepository::selectAll();
         </form>
     </div>
 </section>
-
-<script src="/gestionProjetMW/javaScript/infoContact.js"></script>
 
 <?php require_once __DIR__."/require/footer.php"; ?>
