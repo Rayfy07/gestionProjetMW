@@ -50,7 +50,7 @@ class CustomerRepository
                         code = ?,
                         name = ?,
                         notes = ?
-                    WHERE id=?"
+                    WHERE id = ?"
                 );
 
                 $update->execute(array(

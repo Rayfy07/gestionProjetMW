@@ -7,6 +7,8 @@ use App\
     class\Project,
     class\Customer,
     class\Host,
+    repository\CustomerRepository,
+    repository\HostRepository,
     connection\DataBaseConnection
 };
 
@@ -72,7 +74,7 @@ class ProjectRepository
                         notes = ?,
                         host_id = ?,
                         customer_id = ?
-                    WHERE id=?"
+                    WHERE id = ?"
                 );
                 $update->execute(array(
                         $project->getName(), 
@@ -126,18 +128,6 @@ class ProjectRepository
                 $select->execute();
                 $projects = array();
                 while ($rowSelect = $select->fetch()) {
-                    $selectHostName = $database->prepare(
-                        "SELECT name FROM host WHERE id = ?"
-                    );
-                    $selectHostName->execute(array($rowSelect['host_id']));
-                    $rowSelectHostName = $selectHostName->fetch();
-
-                    $selectCustomerName = $database->prepare(
-                        "SELECT name FROM customer WHERE id = ?"
-                    );
-                    $selectCustomerName->execute(array($rowSelect['customer_id']));
-                    $rowSelectCustomerName = $selectHostName->fetch();
-
                     $project = new Project(
                         $rowSelect['id'],
                         $rowSelect['name'],
@@ -146,8 +136,8 @@ class ProjectRepository
                         $rowSelect['link_mock_ups'],
                         $rowSelect['managed_server'],
                         $rowSelect['notes'],
-                        $rowSelectHostName['name'],
-                        $rowSelectCustomerName['name']
+                        HostRepository::selectById($rowSelect['host_id']),
+                        CustomerRepository::selectById($rowSelect['customer_id'])
                     );
                     array_push(
                         $projects,
@@ -175,18 +165,6 @@ class ProjectRepository
                 $select->execute(array($int));
 
                 if ($rowSelect = $select->fetch()) {
-                    $selectHostName = $database->prepare(
-                        "SELECT name FROM host WHERE id = ?"
-                    );
-                    $selectHostName->execute(array($rowSelect['host_id']));
-                    $rowSelectHostName = $selectHostName->fetch();
-
-                    $selectCustomerName = $database->prepare(
-                        "SELECT name FROM customer WHERE id = ?"
-                    );
-                    $selectCustomerName->execute(array($rowSelect['customer_id']));
-                    $rowSelectCustomerName = $selectHostName->fetch();
-
                     $project = new Project(
                         $rowSelect['id'],
                         $rowSelect['name'],
@@ -195,8 +173,8 @@ class ProjectRepository
                         $rowSelect['link_mock_ups'],
                         $rowSelect['managed_server'],
                         $rowSelect['notes'],
-                        $rowSelectHostName['name'],
-                        $rowSelectCustomerName['name']
+                        HostRepository::selectById($rowSelect['host_id']),
+                        CustomerRepository::selectById($rowSelect['customer_id'])
                     );
 
                     $database = DataBaseConnection::disconnect();
