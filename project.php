@@ -7,36 +7,47 @@ use App\
 {
     class\Project,
     validators\ProjectValidation,
-    repository\ProjectRepository
+    repository\ProjectRepository,
+    repository\CustomerRepository,
+    repository\HostRepository
 };
 
 $code = "";
 $validate = "";
 $error = "";
 
-// if (isset($_POST["delete-project"])) {
+if (isset($_POST["delete-project"])) {
 
-//     $id = $_POST["id"];
-//     $code = $_POST["code"];
-//     $name = $_POST["name"];
-//     $notes = $_POST["notes"];
+    $id = $_POST["id"];
+    $name = $_POST["name-project"];
+    $code = $_POST["code"];
+    $lastFolder = $_POST["lastpass_folder"];
+    $linkMock = $_POST["link_mock_ups"];
+    $managedServer = $_POST["managed_server"];
+    $notes = $_POST["note-project"];
 
-//     $project = new Project(
-//         $id,
-//         $code,
-//         $name,
-//         $notes
-//     );
+    $cust = CustomerRepository::selectByName($_POST["cust"]);
+    $host = HostRepository::selectByName($_POST["hostt"]);
+    
+    $project = new Project(
+        $id,
+        $name,
+        $code,
+        $lastFolder,
+        $linkMock,
+        $managedServer,
+        $notes,
+        $host,
+        $cust
+    );
 
-//     // if(ProjectRepository::delete($project))
-//     // {
-//     //     $validate = "L'hébergeur a bien été supprimé";
-//     // } elseif (ProjectRepository::hasProject($id)) {
-//     //     $error = "L'hébergeur est lié à un projet et ne peut être supprimer";
-//     // } else {
-//     //     $error = "Echec de la suppression de l'hébergeur";
-//     // }
-// }
+    if(ProjectRepository::delete($project))
+    {
+        $validate = "Le projet a bien été supprimé";
+    } else {
+        $error = "Echec de la suppression du projet";
+    }
+}
 
 $projects = ProjectRepository::selectAll();
 ?>
@@ -74,26 +85,31 @@ $projects = ProjectRepository::selectAll();
                     <td>'.$value->getNotes().'</td>
                     <td>
                         <a href="update-project.php?id='.$value->getId().'" class="btn btn-link">Modifier</a> 
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal'.$value->getId().'">Supprimer l\'hébergeur</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal'.$value->getId().'">Supprimer le projet</button>
                             <div class="modal fade" id="deleteModal'.$value->getId().'" tabindex="-1" aria-labelledby="deleteModalLabel'.$value->getId().'" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="deleteModalLabel'.$value->getId().'">Supperssion de l\'hébergeur</h5>
+                                            <h5 class="modal-title" id="deleteModalLabel'.$value->getId().'">Supperssion de le projet</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <h3>Êtes-vous sûr de vouloir supprimer l\'hébergeur n°'.$value->getId().'</h3>
-                                            <p>L\'hébergeur '.$value->getName().'</p>
+                                            <h3>Êtes-vous sûr de vouloir supprimer le projet n°'.$value->getId().'</h3>
+                                            <p>Le projet '.$value->getName().'</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-link" data-bs-dismiss="modal">Annuler la suppression</button>
                                             <form method="post">
                                                 <input type="hidden" name="id" value="'.$value->getId().'">
+                                                <input type="hidden" name="name-project" value="'.$value->getName().'">
                                                 <input type="hidden" name="code" value="'.$value->getCode().'">
-                                                <input type="hidden" name="name" value="'.$value->getName().'">
-                                                <input type="hidden" name="notes" value="'.$value->getNotes().'">
-                                                <button class="btn btn-danger" name="delete-project" type="submit" data-bs-toggle="modal" data-bs-target="#deleteModal'.$value->getId().'">Supprimer l\'hébergeur</button>
+                                                <input type="hidden" name="lastpass_folder" value="'.$value->getLastPassFolder().'">
+                                                <input type="hidden" name="link_mock_ups" value="'.$value->getLinkMockUps().'">
+                                                <input type="hidden" name="managed_server" value="'.$value->getManagedServer().'">
+                                                <input type="hidden" name="note-project" value="'.$value->getNotes().'">
+                                                <input type="hidden" name="hostt" value="'.$value->getHost()->getName().'">
+                                                <input type="hidden" name="cust" value="'.$value->getCustomer()->getName().'">
+                                                <button class="btn btn-danger" name="delete-project" type="submit" data-bs-toggle="modal" data-bs-target="#deleteModal'.$value->getId().'">Supprimer le projet</button>
                                             </form>
                                         </div>
                                     </div>
