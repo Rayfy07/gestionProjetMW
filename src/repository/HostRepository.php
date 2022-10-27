@@ -177,14 +177,14 @@ class HostRepository
         }
     }
 
-    public static function hostExist($id): ?bool
+    public static function hostExist($host): ?bool
     {
         try {
             if($database = DataBaseConnection::connect()) {
                 $select = $database->prepare(
                     "SELECT * FROM host WHERE id = ?"
                 );
-                $select->execute(array($id));
+                $select->execute(array($host->getId()));
     
                 if ($rowSelect = $select->fetch()) {
                     $database = DataBaseConnection::disconnect();

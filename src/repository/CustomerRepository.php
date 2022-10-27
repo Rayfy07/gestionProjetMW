@@ -182,14 +182,14 @@ class CustomerRepository
         }
     }
 
-    public static function customerExist($id): ?bool
+    public static function customerExist($customer): ?bool
     {
         try {
             if($database = DataBaseConnection::connect()) {
                 $select = $database->prepare(
                     "SELECT * FROM customer WHERE id = ?"
                 );
-                $select->execute(array($id));
+                $select->execute(array($customer->getId()));
     
                 if ($rowSelect = $select->fetch()) {
                     $database = DataBaseConnection::disconnect();

@@ -24,23 +24,23 @@ class ProjectValidation
             !empty(verifyString($project->getName()))
             && !empty($project->getHost())
             && !empty($project->getCustomer())
-            && is_numeric($project->getHost())
-            && is_numeric($project->getCustomer())
+            && is_numeric($project->getHost()->getId())
+            && is_numeric($project->getCustomer()->getId())
             && HostRepository::hostExist($project->getHost())
             && CustomerRepository::customerExist($project->getCustomer())
         ) {
-            $projet->setName(verifyString($projet->getName()));
-            $projet->setCode(str_replace(
+            $project->setName(verifyString($project->getName()));
+            $project->setCode(str_replace(
                 " ",
                 "_",
-                strtoupper("PROJECT_".verifyString($projet->getCode()))
+                strtoupper("PROJECT_".verifyString($project->getCode()))
             ));
-            $projet->setLastPassFolder(verifyString($projet->getLastPassFolder()));
-            $projet->setLinkMockUps(verifyString($projet->getLinkMockUps()));
-            $projet->setManagedServer(verifyString($projet->getManagedServer()));
-            $projet->setNotes(verifyString($projet->getNotes()));
-            $projet->setHost($projet->getHost());
-            $projet->setCustomer($projet->getCustomer());
+            $project->setLastPassFolder(verifyString($project->getLastPassFolder()));
+            $project->setLinkMockUps(verifyString($project->getLinkMockUps()));
+            $project->setManagedServer(verifyString($project->getManagedServer()));
+            $project->setNotes(verifyString($project->getNotes()));
+            $project->setHost($project->getHost());
+            $project->setCustomer($project->getCustomer());
             return true;
         } else {
             return false;
