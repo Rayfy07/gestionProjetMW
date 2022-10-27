@@ -4,7 +4,10 @@ namespace App\repository;
 
 use App\
 {
-    class\Project
+    class\Project,
+    class\Customer,
+    class\Host,
+    connection\DataBaseConnection
 };
 
 class ProjectRepository

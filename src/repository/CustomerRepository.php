@@ -152,6 +152,36 @@ class CustomerRepository
         }
     }
 
+    public static function selectByName(string $name): ?Customer
+    {
+        try {
+            if($database = DataBaseConnection::connect()) {
+                $select = $database->prepare(
+                    "SELECT * FROM customer WHERE name = ?"
+                );
+                $select->execute(array($name));
+
+                if ($rowSelect = $select->fetch()) {
+                    $customer = new Customer(
+                        $rowSelect['id'],
+                        $rowSelect['code'],
+                        $rowSelect['name'],
+                        $rowSelect['notes']
+                    );
+
+                    $database = DataBaseConnection::disconnect();
+                    return $customer;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } catch (\Exception) {
+            return null;
+        }
+    }
+
     public static function nameExist($name): ?bool
     {
         try {
@@ -183,7 +213,7 @@ class CustomerRepository
                 $select = $database->prepare(
                     "SELECT * FROM project WHERE customer_id = ?"
                 );
-                $select->execute(array($id));
+                $select->execute(array($name));
 
                 if($rowSelect = $select->fetch()) {
                     $database = DataBaseConnection::disconnect();

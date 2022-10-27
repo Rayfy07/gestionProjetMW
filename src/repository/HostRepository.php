@@ -73,10 +73,10 @@ class HostRepository
     {
         try {
             if($database = DataBaseConnection::connect()) {
-                $delete = $database->prepare(
+                $update = $database->prepare(
                     "DELETE FROM host WHERE id=?"
                 );
-                $delete->execute(array($host->getId()));
+                $update->execute(array($host->getId()));
 
                 $database = DataBaseConnection::disconnect();
                 return true;
@@ -148,6 +148,35 @@ class HostRepository
         }
     }
 
+    public static function selectByName(string $name): ?Host
+    {
+        try {
+            if($database = DataBaseConnection::connect()) {
+                $select = $database->prepare(
+                    "SELECT * FROM host WHERE name = ?"
+                );
+                $select->execute(array($name));
+                if ($rowSelect = $select->fetch()) {
+                    $host = new Host(
+                        $rowSelect['id'],
+                        $rowSelect['code'],
+                        $rowSelect['name'], 
+                        $rowSelect['notes']
+                    );
+
+                    $database = DataBaseConnection::disconnect();
+                    return $host;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } catch (\Exception) {
+            return null;
+        }
+    }
+
     public static function hasProject($id): ?bool
     {
         try {
@@ -155,7 +184,7 @@ class HostRepository
                 $select = $database->prepare(
                     "SELECT * FROM project WHERE host_id = ?"
                 );
-                $select->execute(array($id));
+                $select->execute(array($name));
 
                 if($rowSelect = $select->fetch()) {
                     $database = DataBaseConnection::disconnect();
