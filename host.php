@@ -34,7 +34,7 @@ if (isset($_POST["delete-host"])) {
     } elseif (HostRepository::delete($host)) {
         $validate = "L'hébergeur a bien été supprimé";
     } else {
-        $error = "Echec de la suppression de l'hébergeur (Peut etre lié à un contact)";
+        $error = "Echec de la suppression de l'hébergeur";
     }
 }
 

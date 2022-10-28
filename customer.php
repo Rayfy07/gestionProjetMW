@@ -34,7 +34,7 @@ if (isset($_POST["delete-contact"])) {
     } elseif (CustomerRepository::delete($customer)) {
         $validate = "Le Client a bien été supprimé";
     } else {
-        $error = "Echec de la suppression du client (Peut etre lié à un contact)";
+        $error = "Echec de la suppression du client";
     }
 }
 
