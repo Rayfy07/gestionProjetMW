@@ -74,8 +74,14 @@ class CustomerRepository
     {
         try {
             if($database = DataBaseConnection::connect()) {
+                //à remplacer quand CRUD contact sera fait
+                $deleteCont = $database->prepare(
+                    "DELETE FROM contact WHERE customer_id = ?"
+                );
+                $deleteCont->execute(array($customer->getId()));
+
                 $delete = $database->prepare(
-                    "DELETE FROM customer WHERE id=?"
+                    "DELETE FROM customer WHERE id = ?"
                 );
                 $delete->execute(array($customer->getId()));
 
@@ -237,7 +243,7 @@ class CustomerRepository
                 $select = $database->prepare(
                     "SELECT * FROM project WHERE customer_id = ?"
                 );
-                $select->execute(array($name));
+                $select->execute(array($id));
 
                 if($rowSelect = $select->fetch()) {
                     $database = DataBaseConnection::disconnect();

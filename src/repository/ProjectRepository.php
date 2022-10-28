@@ -109,10 +109,16 @@ class ProjectRepository
     {
         try {
             if($database = DataBaseConnection::connect()) {
-                $update = $database->prepare(
-                    "DELETE FROM project WHERE id=?"
+                //à remplacer quand CRUD environnement sera fait
+                $deleteEnv = $database->prepare(
+                    "DELETE FROM environment WHERE project_id = ?"
                 );
-                $update->execute(array($project->getId()));
+                $deleteEnv->execute(array($project->getId()));
+
+                $delete = $database->prepare(
+                    "DELETE FROM project WHERE id = ?"
+                );
+                $delete->execute(array($project->getId()));
 
 
                 $database = DataBaseConnection::disconnect();
