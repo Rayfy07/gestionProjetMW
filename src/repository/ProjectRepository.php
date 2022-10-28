@@ -83,12 +83,19 @@ class ProjectRepository
                         customer_id = ?
                     WHERE id = ?"
                 );
+
+                if($project->getManagedServer()) {
+                    $managedServer = 1;
+                } else {
+                    $managedServer = 0;
+                }
+                
                 $update->execute(array(
                         $project->getName(), 
                         $project->getCode(),
                         $project->getLastPassFolder(),
                         $project->getLinkMockUps(),
-                        $project->getManagedServer(),
+                        $managedServer,
                         $project->getNotes(),
                         $project->getHost()->getId(),
                         $project->getCustomer()->getId(),

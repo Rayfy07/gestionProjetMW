@@ -57,7 +57,6 @@ if (isset($_POST["edit"])) {
     } else {
         $error = "Un des champs est mal rempli";
     }
-
 }
 
 if (isset($_POST['dont-edit-contact'])) {

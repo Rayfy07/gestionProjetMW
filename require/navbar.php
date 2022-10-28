@@ -34,7 +34,7 @@
                         </li>
                         <li>
                         <i class="bi bi-person"></i>
-                            <a href="#">Projets</a>
+                            <a href="/gestionProjetMW/project.php">Projets</a>
                         </li>
                         <li>
                             <i class="bi bi-building"></i>

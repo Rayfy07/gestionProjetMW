@@ -10,17 +10,22 @@ use App\
     repository\CustomerRepository
 };
 
+$name = "";
 $code = "";
+$notes = "";
 $validate = "";
 $error = "";
 
 if (isset($_POST["add-customer"]))
 {
+    $name = $_POST["name-customer"];
+    $notes = $_POST["note-customer"];
+
     $customer = new Customer(
         0,
-        $_POST["name-customer"],
-        $_POST["name-customer"],
-        $_POST["note-customer"]
+        $name,
+        $name,
+        $notes
     );
 
     if (CustomerValidation::isValid($customer)) {
@@ -61,7 +66,7 @@ if (isset($_POST["add-customer"]))
     <div id="info">
         <form action="" method="post">
             <div class="form-floating mb-3">
-                <input type="text" name="name-customer" class="form-control" id="floatingName" placeholder="Jean Dupont">
+                <input type="text" name="name-customer" class="form-control" id="floatingName" placeholder="Jean Dupont" value=<?php echo $name ?>>
                 <label for="floatingName">Nom du client</label>
             </div>
             <div class="form-floating mb-3">
@@ -69,7 +74,7 @@ if (isset($_POST["add-customer"]))
                 <label for="floatingCode">Code interne généré automatiquement</label>
             </div>
             <div class="form-floating mb-3">
-                <textarea class="form-control" name="note-customer" placeholder="Notes/Remarques" id="floatingNote" style="height: 100px"></textarea>
+                <textarea class="form-control" name="note-customer" placeholder="Notes/Remarques" id="floatingNote" style="height: 100px"><?php echo $notes ?></textarea>
                 <label for="floatingNote">Notes ou remarques</label>
             </div>
             <button class="btn btn-secondary mb-3" type="reset">Annuler l'ajout du client</button>

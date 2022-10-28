@@ -26,7 +26,7 @@ if (isset($_GET["id"])) {
             $code = $host->getCode();
             $notes = $host->getNotes();
         } else {
-            $errorFounding = "Ce client n'existe pas";
+            $errorFounding = "Cet hébergeur n'existe pas";
         }
     } else {
         $errorFounding = "Impossible de faire une modification sur un ID n'étant pas un entier";
@@ -55,7 +55,7 @@ if (isset($_POST["edit-host"])) {
             $code = $host->getCode();
             $notes = $host->getNotes();
         } else {
-            $error = "Erreur dans la modification du client (Ce nom correspond peut-être à un client déjà existant)";
+            $error = "Erreur dans la modification de l'hébergeur (Ce nom correspond peut-être à un hébergeur déjà existant)";
         }
     } else {
         $error = "Un des champs est mal rempli";

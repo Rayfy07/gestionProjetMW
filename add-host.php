@@ -10,17 +10,22 @@ use App\
     repository\HostRepository
 };
 
+$name = "";
 $code = "";
+$notes = "";
 $validate = "";
 $error = "";
 
 if (isset($_POST["add-host"]))
 {
+    $name = $_POST["name-host"];
+    $notes = $_POST["note-host"];
+
     $host = new Host(
         0,
-        $_POST["name-host"],
-        $_POST["name-host"],
-        $_POST["note-host"]
+        $name,
+        $name,
+        $notes
     );
 
     if(HostValidation::isValid($host))
@@ -56,7 +61,7 @@ if (isset($_POST["add-host"]))
     <div id="info">
         <form action="" method="post">
             <div class="form-floating mb-3">
-                <input type="text" name="name-host" class="form-control" id="floatingName" placeholder="Jean Dupont">
+                <input type="text" name="name-host" class="form-control" id="floatingName" placeholder="Jean Dupont" value=<?php echo $name ?>>
                 <label for="floatingName">Nom de l'hébergeur</label>
             </div>
             <div class="form-floating mb-3">
@@ -64,7 +69,7 @@ if (isset($_POST["add-host"]))
                 <label for="floatingCode">Code interne généré automatiquement</label>
             </div>
             <div class="form-floating mb-3">
-                <textarea class="form-control" name="note-host" placeholder="Notes/Remarques" id="floatingNote" style="height: 100px"></textarea>
+                <textarea class="form-control" name="note-host" placeholder="Notes/Remarques" id="floatingNote" style="height: 100px"><?php echo $notes ?></textarea>
                 <label for="floatingNote">Notes ou remarques</label>
             </div>
             <button class="btn btn-secondary mb-3" type="reset">Annuler l'ajout de l'hébergeur</button>
