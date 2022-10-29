@@ -3,6 +3,7 @@
 namespace App\validators;
 
 use App\class\Host;
+use slugifier as s;
 
 class HostValidation
 {
@@ -18,11 +19,7 @@ class HostValidation
 
         if (!empty(verify($host->getName()))) {
             $host->setName(verify($host->getName()));
-            $host->setCode(str_replace(
-                " ",
-                "_",
-                strtoupper("CUST_".verify($host->getCode()))
-            ));
+            $host->setCode(strtoupper("HOST_".s\slugify(verify($host->getCode()), '_')));
             $host->setNotes(verify($host->getNotes()));
             return true;
         } else {

@@ -7,6 +7,7 @@ use App\{
     repository\CustomerRepository,
     repository\HostRepository
 };
+use slugifier as s;
 
 class ProjectValidation
 {
@@ -30,11 +31,7 @@ class ProjectValidation
             && CustomerRepository::customerExist($project->getCustomer())
         ) {
             $project->setName(verifyString($project->getName()));
-            $project->setCode(str_replace(
-                " ",
-                "_",
-                strtoupper("PROJECT_".verifyString($project->getCode()))
-            ));
+            $project->setCode(strtoupper("PROJECT_".s\slugify(verifyString($project->getCode()), '_')));
             $project->setLastPassFolder(verifyString($project->getLastPassFolder()));
             $project->setLinkMockUps(verifyString($project->getLinkMockUps()));
             $project->setManagedServer(verifyString($project->getManagedServer()));

@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__."/require/navbar.php";
-require "Autoloader.php";
+require_once __DIR__."/vendor/autoload.php";
 
 use App\
 {

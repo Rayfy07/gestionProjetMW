@@ -3,6 +3,7 @@
 namespace App\validators;
 
 use App\class\Customer;
+use slugifier as s;
 
 class CustomerValidation
 {
@@ -18,11 +19,7 @@ class CustomerValidation
 
         if (!empty(verify($customer->getName()))) {
             $customer->setName(verify($customer->getName()));
-            $customer->setCode(str_replace(
-                    " ",
-                    "_",
-                    strtoupper("CUST_".verify($customer->getCode()))
-            ));
+            $customer->setCode(strtoupper("CUST_".s\slugify(verify($customer->getCode()), '_')));
             $customer->setNotes(verify($customer->getNotes()));
             return true;
         } else {
