@@ -10,7 +10,7 @@
     "minimum-stability": "stable",
     "require": {
         "webmozart/assert":"1.11.0",
-        "keyvanakbary/slugifier":"4.0.0",
-        "egulias/email-validator":"3.2.1"
+        "egulias/email-validator":"3.2.1",
+        "keyvanakbary/slugifier": "^4.0"
     }
 }

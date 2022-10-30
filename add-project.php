@@ -39,44 +39,71 @@ if (isset($_POST["add-project"]))
     $notes = $_POST["note-project"];
 
     if (
-        !empty($_POST["customer_id"]) 
-        && !empty($_POST["host_id"])
-        && CustomerRepository::nameExist($_POST["customer_id"])
-        && HostRepository::nameExist($_POST["host_id"])
+        (
+            empty($_POST["customer_id"]) 
+            || !CustomerRepository::nameExist($_POST["customer_id"])
+        )
+        &&(
+            empty($_POST["host_id"])
+            || !HostRepository::nameExist($_POST["host_id"])
+        )
     )
     {
-        $customer = CustomerRepository::selectByName($_POST["customer_id"]);
-        $host = HostRepository::selectByName($_POST["host_id"]);
-        $customerName = $customer->getName();
-        $hostName = $host->getName();
-
-        $project = new Project(
-            0,
-            $name,
-            $name,
-            $lastpass_folder,
-            $link_mock_ups,
-            $managedServer,
-            $notes,
-            $host,
-            $customer
-        );
-
-        if(ProjectValidation::isValid($project))
-        {
-            if (ProjectRepository::insert($project))
-            {
-                $validate = "Le projet a bien été ajouté";
-                $code = "";
-                header("Location: update-project.php?id=".$project->getId());
-            } else {
-                $error = "Erreur dans l'ajout du projet";
-            }
-        } else {
-            $error = "Le nom doit être renseigné";
-        }
-    } else {
         $error = "L'hébergeur et le client doivent être renseigné et valide";
+    } else {
+        $customerOk = false;
+        $hostOk = false;
+
+        if (
+            !empty($_POST["customer_id"])
+            && CustomerRepository::nameExist($_POST["customer_id"])
+        )
+        {
+            $customer = CustomerRepository::selectByName($_POST["customer_id"]);
+            $customerName = $customer->getName();
+            $customerOk = true;
+        } else {
+            $error = "Le client doit être renseigné et valide";
+        }
+
+        if (
+            !empty($_POST["host_id"])
+            && HostRepository::nameExist($_POST["host_id"])
+        )
+        {
+            $host = HostRepository::selectByName($_POST["host_id"]);
+            $hostName = $host->getName();
+            $hostOk = true;
+        } else {
+            $error = "L'hébergeur doit être renseigné et valide";
+        }
+
+        if ($customerOk && $hostOk) {
+            $project = new Project(
+                0,
+                $name,
+                $name,
+                $lastpass_folder,
+                $link_mock_ups,
+                $managedServer,
+                $notes,
+                $host,
+                $customer
+            );
+
+            if (ProjectValidation::isValid($project)) {
+                if (ProjectRepository::insert($project))
+                {
+                    $validate = "Le projet a bien été ajouté";
+                    $code = "";
+                    header("Location: update-project.php?id=".$project->getId());
+                } else {
+                    $error = "Erreur dans l'ajout du projet";
+                }
+            } else {
+                $error = "Le nom doit être renseigné";
+            }
+        }
     }
 }
 
