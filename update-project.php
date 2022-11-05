@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__."/require/navbar.php";
-require "Autoloader.php";
+require_once __DIR__."/vendor/autoload.php";
 
 use App\
 {
@@ -128,74 +128,73 @@ $hosts = HostRepository::selectAll();
         <h2>Informations générales</h2>
         <?php
 
-        if ($errorFounding != "") {
-            echo'   <div class="alert alert-danger" role="alert">
-                        <p>'.$errorFounding.'</p>
-                    </div>
-                    ';
-        } else {
-            echo'   <form action="" method="post">
-                        <div class="form-floating mb-3">
-                            <input type="text" name="name-project" class="form-control" id="floatingName" placeholder="Jean Dupont" value="'.$name.'">
-                            <label for="floatingName">Nom du projet</label>
+            if ($errorFounding != "") {
+                echo'   <div class="alert alert-danger" role="alert">
+                            <p>'.$errorFounding.'</p>
                         </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" name="code-intra" class="form-control" id="floatingCode" disabled placeholder=" " value="'.$code.'">
-                            <label for="floatingCode">Code interne généré automatiquement</label>
-                        </div>
-                        <label for="listCustomer" class="form-label">Liste des clients</label>
-                        <input class="form-control mb-3" name="customer_id" list="datalistOptionsCustomer" id="listCustomer" placeholder="Rechercher un client" value="'.$customerName.'">
-                        <datalist id="datalistOptionsCustomer">';
+                        ';
+            } else {
+                echo'   <form action="" method="post">
+                            <div class="form-floating mb-3">
+                                <input type="text" name="name-project" class="form-control" id="floatingName" placeholder="Jean Dupont" value="'.$name.'">
+                                <label for="floatingName">Nom du projet</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" name="code-intra" class="form-control" id="floatingCode" disabled placeholder=" " value="'.$code.'">
+                                <label for="floatingCode">Code interne généré automatiquement</label>
+                            </div>
+                            <label for="listCustomer" class="form-label">Liste des clients</label>
+                            <input class="form-control mb-3" name="customer_id" list="datalistOptionsCustomer" id="listCustomer" placeholder="Rechercher un client" value="'.$customerName.'">
+                            <datalist id="datalistOptionsCustomer">';
 
-            foreach ($customers as $value) {
-                echo '      <option value="'.$value->getName().'"></option>';
+                foreach ($customers as $value) {
+                    echo '      <option value="'.$value->getName().'"></option>';
+                }
+
+                echo '      </datalist>
+                            <label for="listHost" class="form-label">Liste des hébergeurs</label>
+                            <input class="form-control mb-3" name="host_id" list="datalistOptionsHost" id="listHost" placeholder="Rechercher un hébergeur" value="'.$hostName.'">
+                            <datalist id="datalistOptionsHost">';
+
+                foreach ($hosts as $value) {
+                    echo '      <option value="'.$value->getName().'"></option>';
+                }
+
+                echo'       </datalist>
+                            <div class="form-check">
+                                <input class="form-check-input" name="managed_server" type="checkbox" id="flexCheckServer"';
+                                if ($managedServer == 1) {
+                                    echo "checked";
+                                }
+                                echo '>
+                                <label class="form-check-label mb-3" for="flexCheckServer">Serveur infogéré</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" name="note-project" placeholder="Notes/Remarques" id="floatingNote" style="height: 100px">'.$notes.'</textarea>
+                                <label for="floatingNote">Notes ou remarques</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" name="lastpass_folder" class="form-control" id="floatingFolder" placeholder="Client\FFD\..." value="'.$lastpass_folder.'">
+                                <label for="floatingFolder">Dossier lastpass</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" name="link_mock_ups" class="form-control" id="floatingLink" placeholder="https://" value="'.$link_mock_ups.'">
+                                <label for="floatingLink">Lien maquettes</label>
+                            </div>
+                            <button class="btn btn-primary mb-3" name="edit-project" type="submit">Modifier le projet</button>
+                            <button class="btn btn-secondary mb-3" type="submit" name="dont-edit-project">Annuler la modification du projet</button>
+                        </form>';
+
+                if($validate != "") {
+                    echo'<div class="alert alert-success" role="alert">
+                            <p>'.$validate.'</p>
+                        </div>';
+                } elseif ($error != "") {
+                        echo'<div class="alert alert-danger" role="alert">
+                            <p>'.$error.'</p>
+                        </div>';
+                }
             }
-
-            echo '      </datalist>
-                        <label for="listHost" class="form-label">Liste des hébergeurs</label>
-                        <input class="form-control mb-3" name="host_id" list="datalistOptionsHost" id="listHost" placeholder="Rechercher un hébergeur" value="'.$hostName.'">
-                        <datalist id="datalistOptionsHost">';
-
-            foreach ($hosts as $value) {
-                echo '      <option value="'.$value->getName().'"></option>';
-            }
-
-            echo'       </datalist>
-                        <div class="form-check">
-                            <input class="form-check-input" name="managed_server" type="checkbox" id="flexCheckServer"';
-                            if ($managedServer == 1) {
-                                echo "checked";
-                            }
-                            echo '>
-                            <label class="form-check-label mb-3" for="flexCheckServer">Serveur infogéré</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <textarea class="form-control" name="note-project" placeholder="Notes/Remarques" id="floatingNote" style="height: 100px">'.$notes.'</textarea>
-                            <label for="floatingNote">Notes ou remarques</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" name="lastpass_folder" class="form-control" id="floatingFolder" placeholder="Client\FFD\..." value="'.$lastpass_folder.'">
-                            <label for="floatingFolder">Dossier lastpass</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" name="link_mock_ups" class="form-control" id="floatingLink" placeholder="https://" value="'.$link_mock_ups.'">
-                            <label for="floatingLink">Lien maquettes</label>
-                        </div>
-                        <button class="btn btn-secondary mb-3" type="submit" name="dont-edit-project">Annuler la modification du projet</button>
-                        <button class="btn btn-primary mb-3" name="edit-project" type="submit">Modifier le projet</button>';
-
-            if($validate != "") {
-                echo'<div class="alert alert-success" role="alert">
-                        <p>'.$validate.'</p>
-                    </div>';
-            } elseif ($error != "") {
-                    echo'<div class="alert alert-danger" role="alert">
-                        <p>'.$error.'</p>
-                    </div>';
-            }
-        }
-
-        echo'       </form>';
         ?>
     </div>
     <div id="contact">

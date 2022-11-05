@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__."/require/navbar.php";
-require "Autoloader.php";
+require_once __DIR__."/vendor/autoload.php";
 
 use App\
 {
@@ -28,15 +28,20 @@ if (isset($_POST["add-host"]))
         $notes
     );
 
-    if(HostValidation::isValid($host))
-    {
-        if (HostRepository::insert($host))
-        {
-            $validate = "L'hébergeur a bien été ajouté";
-            $code = "";
-            header("Location: update-host.php?id=".$host->getId());
+    if (HostValidation::isValid($host)) {
+        $nameExist = HostRepository::nameExist($host->getName());
+        if ($nameExist === false) {
+            if (HostRepository::insert($host)) {
+                $validate = "L'hébergeur a bien été ajouté";
+                $code = "";
+                header("Location: update-host.php?id=".$host->getId());
+            } else {
+                $error = "Erreur dans l'ajout de l'hébergeur";
+            }
+        } elseif ($nameExist === null) {
+            $error = "Problème de connexion";
         } else {
-            $error = "Erreur dans l'ajout de l'hébergeur";
+            $error = "Cet hébergeur existe déjà";
         }
     } else {
         $error = "Le nom doit être renseigné";

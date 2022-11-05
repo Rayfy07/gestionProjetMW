@@ -1,0 +1,115 @@
+CREATE TABLE host (
+    id int NOT NULL AUTO_INCREMENT,
+    code varchar(255),
+    name varchar(255) NOT NULL UNIQUE,
+    notes varchar(1000),
+    PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE customer(
+    id int NOT NULL AUTO_INCREMENT,
+    code varchar(255),
+    name varchar(255) NOT NULL UNIQUE,
+    notes varchar(1000),
+    PRIMARY KEY (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE contact(
+    id int NOT NULL AUTO_INCREMENT,
+    email varchar(255),
+    phone_number varchar(255),
+    role varchar(255),
+    host_id int,
+    customer_id int,
+    PRIMARY KEY (id),
+    FOREIGN KEY (host_id) REFERENCES host (id),
+    FOREIGN KEY (customer_id) REFERENCES customer (id)
+) ENGINE=InnoDB;
+
+-- on ne peut avoir un contact rattacher a la fois à un customer et à un host --
+
+CREATE TABLE project(
+    id int NOT NULL AUTO_INCREMENT,
+    name varchar(255) NOT NULL,
+    code varchar(255),
+    lastpass_folder varchar(255),
+    link_mock_ups varchar(255),
+    managed_server tinyint(1),
+    notes varchar(1000),
+    host_id int NOT NULL,
+    customer_id int NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (host_id) REFERENCES host (id),
+    FOREIGN KEY (customer_id) REFERENCES customer (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE environment(
+    id int NOT NULL AUTO_INCREMENT,
+    name varchar(255),
+    link varchar(255),
+    ip_address varchar(255),
+    ssh_port int(6),
+    ssh_username varchar(255),
+    phpmyadmin_link varchar(255),
+    ip_restriction tinyint(1),
+    project_id int NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (project_id) REFERENCES project (id)
+) ENGINE=InnoDB;
+
+INSERT INTO host(code, name, notes) VALUES ("HOST_HOSTINGER","HOSTINGER","Hostinger International, Ltd est un fournisseur d'hébergement Web et un registraire de domaine Internet appartenant à ses employés, créé en 2004.");
+INSERT INTO host(code, name, notes) VALUES ("HOST_LWS","LXS","LWS est le partenaire français idéal pour les particuliers, passionnés et entreprises.
+La performance de nos serveurs vous permet de disposer d'une vitesse maximale pour vos projets web !");
+INSERT INTO host(code, name, notes) VALUES ("HOST_OVH","OVH","OVHcloud, anciennement OVH, est une entreprise française. Elle pratique initialement de l'hébergement de serveur, et est un fournisseur d'accès à Internet, puis opérateur de télécommunications pour les entreprises.");
+INSERT INTO host(code, name, notes) VALUES ("HOST_IONOS","IONOS","IONOS by 1&1 fondée en 1988, est une société d’hébergement Web. Elle fait partie du groupe coté en bourse United Internet AG.");
+INSERT INTO host(code, name, notes) VALUES ("HOST_HOSTGATOR","HostGator","HostGator est un fournisseur basé à Houston de partage, revendeur, serveur privé virtuel et hébergement Web dédié avec une présence supplémentaire à Austin, Texas.");
+INSERT INTO host(code, name, notes) VALUES ("HOST_GODADDY","GoDaddy","GoDaddy est une entreprise américaine fondée en 1997 qui est spécialisée dans la gestion de noms de domaine sur Internet et la mise à disposition de services d'hébergement web.");
+INSERT INTO host(code, name, notes) VALUES ("HOST_NETWORK_SOLUTIONS","network solutions","Network Solutions, LLC est une entreprise technologique américaine fondée en 1979. En 2009, la gestion du registre de noms de domaine, essentiel au fonctionnement d'Internet, est son activité la plus importante.");
+INSERT INTO host(code, name, notes) VALUES ("HOST_INMOTION","InMotion","Secure web hosting that grows with your business");
+INSERT INTO host(code, name, notes) VALUES ("HOST_A2_HOSTING","A2 HOSTING","");
+INSERT INTO host(code, name, notes) VALUES ("HOST_WEBHOSTINGPAD","WebHostingPad","");
+
+INSERT INTO customer(code, name, notes) VALUES ("CUST_CDISCOUNT","CDiscount","");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_AMAZON","Amazon","");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_FERNAND_BRUGIERE","Fernand Brugière","notes sur Fernand Brugière");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_ESTELLE_BOUSQUET","Estelle Bousquet","notes sur Estelle Bousquet");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_THIBAULT_TREMEL","Thibault Tremel","notes sur Thibault Tremel");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_MEDHI_HAI","Medhi Hai","notes sur Hai Medhi");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_PEUGEOT","Peugeot","constructeur automobile");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_ISMAIL_OULEHRI","Ismail Oulehri","notes sur Ismail Oulehri");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_YAO_LIN","Yao Lin","notes sur Yao Lin");
+INSERT INTO customer(code, name, notes) VALUES ("CUST_RENAULT","RENAULT","constructeur automobile");
+
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("","1007","Service client",3,null);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("ismailoulehri@gmail.com","0689567238","Chef de projet",null,8);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("hq@godaddy.com","0157323649","Service client",6,null);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("yao.lin@afnic.com","0769960077","Responsable système d'information",null,9);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("estellebousquet@gmail.com","0624252629","developpeuse",null,4);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("estelle.bousquet@bousquet.fr","0188227254","directrice",null,4);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("","0713574528","Service client",5,null);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("fr@hostinger.com","","Service support",1,null);
+INSERT INTO contact(email, phone_number, role, host_id, customer_id) VALUES ("","0155948100","Siège social",null,7);
+
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("FEDUI","PROJECT_FEDUI","/fedui/main","/fedui/main/mockups",0,"",1,2);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("Peugeot site public","PROJECT_PEUGEOT_SITE_PUBLIC","","",1,"Refonte du site",3,7);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("Fédération Française de danse","PROJET_FEDERATION_FRANCAISE_DE_DANSE","Clients/FFDanse/Extranet","https://adobe-xd.com/ffdanse-extranet",0,"",4,4);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("Peugeot site public","PROJECT_PEUGEOT_SITE_PUBLIC","","",1,"Maintenance",3,7);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("Mixzo","PROJECT_MIXZO","","https://mixzo.com",0,"",4,9);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("Extranet","PROJECT_EXTRANET","//","https://trandom.com",1,"",3,6);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("RENAULT SERVICE","PROJECT_RENAULT_SERVICE","","",1,"pas de notes",6,10);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("Site perso","PROJECT_SITE_PERSO","lin/least","",0,"",7,9);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("Extranet Peugeot","PROJECT_EXTRANET_PEUGEOT","","",0,"Mise en relation des différents commerciaux",4,7);
+INSERT INTO project(name, code, lastpass_folder, link_mock_ups, managed_server, notes, host_id, customer_id) VALUES ("Site perso","PROJECT_SITE_PERSO","https://ismailPF","",0,"Portfolio",10,8);
+
+INSERT INTO environment(name, link, ip_address, ssh_port, ssh_username, phpmyadmin_link, ip_restriction, project_id) values ("Production", "c:pro/Production", "192.168.0.0", 80, "root", "ns00.wistee.fr", 0, 1);
+INSERT INTO environment(name, link, ip_address, ssh_port, ssh_username, phpmyadmin_link, ip_restriction, project_id) values ("Livrable", "c:projet/Livrable", "192.168.0.10", 80, "user", "ns11.wistee.fr", 1, 2);
+INSERT INTO environment(name, link, ip_address, ssh_port, ssh_username, phpmyadmin_link, ip_restriction, project_id) values ("Marketing", "c:finance/Marketing", "192.168.0.20", 80, "name", "ns22.wistee.fr", 0, 3);
+INSERT INTO environment(name, link, ip_address, ssh_port, ssh_username, phpmyadmin_link, ip_restriction, project_id) values ("Ressources", "c:RH/Ressources", "192.168.0.30", 80, "toor", "", 1, 4);
+INSERT INTO environment(name, link, ip_address, ssh_port, ssh_username, phpmyadmin_link, ip_restriction, project_id) values ("Humaines", "c:RH/Humaines", "192.168.0.40", 80, "", "ns44.wistee.fr", 0, 5);
+INSERT INTO environment(name, link, ip_address, ssh_port, ssh_username, phpmyadmin_link, ip_restriction, project_id) values ("Recherche", "c:search/Recherche", "192.168.0.50", null, "post", "ns55.wistee.fr", 1, 6);
+INSERT INTO environment(name, link, ip_address, ssh_port, ssh_username, phpmyadmin_link, ip_restriction, project_id) values ("Developpement", "c:app/Developpement", "192.168.0.60", 80, "get", "ns66.wistee.fr", 0, 7);
+INSERT INTO environment(name, link, ip_address, ssh_port, ssh_username, phpmyadmin_link, ip_restriction, project_id) values ("Préparateur", "c:maquette/Préparateur", "", 80, "private", "ns77.wistee.fr", 1, 8);
+INSERT INTO environment(name, link, ip_address, ssh_port, ssh_username, phpmyadmin_link, ip_restriction, project_id) values ("Manager", "", "192.168.0.80", 80, "public", "ns88.wistee.fr", 0, 9);
+INSERT INTO environment(name, link, ip_address, ssh_port, ssh_username, phpmyadmin_link, ip_restriction, project_id) values ("", "c:assistance/Assistan", "192.168.0.90", 80, "accept", "ns99.wistee.fr", 1, 10);
+INSERT INTO environment(name, link, ip_address, ssh_port, ssh_username, phpmyadmin_link, ip_restriction, project_id) values ("Secretaire", "c:gestion/Secretaire", "192.168.0.100", 80, "refus", "ns100.wistee.fr", 0, 1);
+INSERT INTO environment(name, link, ip_address, ssh_port, ssh_username, phpmyadmin_link, ip_restriction, project_id) values ("Assistant", "c:assistance/Assistant2", "192.168.0.110", 80, "exception", "ns110.wistee.fr", 1, 1);

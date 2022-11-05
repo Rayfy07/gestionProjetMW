@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__."/require/navbar.php";
-require "Autoloader.php";
+require_once __DIR__."/vendor/autoload.php";
 
 use App\
 {
@@ -111,8 +111,8 @@ if (isset($_POST['dont-edit-host'])) {
                                 <textarea class="form-control" placeholder="Notes/Remarques" name="note-host" id="floatingNote" style="height: 100px">'.$notes.'</textarea>
                                 <label for="floatingNote">Notes ou remarques</label>
                             </div>
+                            <button class="btn btn-primary mb-3" name="edit-host" type="submit">Modifier l\'hébergeur</button>
                             <button class="btn btn-secondary mb-3" name="dont-edit-host" type="submit">Ne pas modifier le client</button>
-                            <button class="btn btn-primary mb-3" name="edit-host" type="submit">Modifier le client</button>
                         </form>';
 
                 if ($validate != "") {
